@@ -1,12 +1,26 @@
 version: '3.8'
 services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8080
+    volumes:
+      - /client:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - backend
+
   backend:
-    container_name: inclucity-backend
+    container_name: backend
     build: server
     ports:
       - "8080:8080"
-    volumes:
-      - "//./logs:/app/logs"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/hackathon_2025_test
       SPRING_DATASOURCE_USERNAME: root
@@ -14,9 +28,26 @@ services:
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
+    volumes:
+      - /server:/app
     depends_on:
       db:
         condition: service_healthy
+
+  ai_service:
+    container_name: ai_service
+    build:
+      context: ./ai_service
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - /ai_service:/app
+    command: /py/bin/uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - backend
 
   db:
     image: mysql:8.0
@@ -36,3 +67,8 @@ services:
 
 volumes:
   mysql_data:
+
+networks:
+  default:
+    name: inclucity-network
+    driver: bridge
