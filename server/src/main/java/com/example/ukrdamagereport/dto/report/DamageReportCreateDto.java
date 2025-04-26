@@ -8,12 +8,13 @@ import lombok.Data;
 
 @Data
 public class DamageReportCreateDto {
+    
+    private byte[] photoBefore;
+    
+    private byte[] photoAfter;
+
     @NotBlank(message = "Description is required")
     private String description;
-    
-    private String photoBefore;
-    
-    private String photoAfter;
     
     @NotNull(message = "Infrastructure Type is required")
     private InfrastructureType infrastructureType;
