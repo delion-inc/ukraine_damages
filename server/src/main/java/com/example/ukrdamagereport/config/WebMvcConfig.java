@@ -20,7 +20,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     private static final String[] ALLOWED_ORIGINS = {
-            "http://localhost:3000"
+            "http://localhost:3000",
+            "http://93.127.131.80:3000"
     };
 
     @Bean

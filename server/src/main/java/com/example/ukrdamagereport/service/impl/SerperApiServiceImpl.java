@@ -32,7 +32,6 @@ public class SerperApiServiceImpl implements SerperApiService {
             String enhancedQuery = enhanceQueryWithDestruction(query);
             log.debug("Making request with query: {}", enhancedQuery);
 
-            // Підготовка параметрів запиту
             Map<String, Object> requestBody = new HashMap<>();
             requestBody.put("q", enhancedQuery);
             requestBody.put("gl", serperConfig.getGl());
