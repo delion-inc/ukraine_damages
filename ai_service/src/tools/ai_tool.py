@@ -71,6 +71,7 @@ construction_year - {construction_year}
 Here is a photo description of the building the damage:
 {photo_description}
 
+Make final response in Ukrainian language!
 
 Return final response in next format:
 
@@ -78,7 +79,7 @@ Return final response in next format:
 Final Answer:
 {{
 "money_evaluation": int, // total cost of repairs in dollars
-"description": str, // description of the reasons for the cost. List the main expenses (only in str format)
+"description": str, // description of the reasons for the cost. List the main expenses (only in str format) in Ukrainian language
 }}
 ```
 
