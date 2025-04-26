@@ -1,0 +1,341 @@
+2025-04-26 13:35:15.076 [main] INFO  c.e.u.UkrDamageReportApplication [rid:] [uid:] [action:] - Starting UkrDamageReportApplication using Java 24.0.1 with PID 24249 (/mnt/Windows/Repository/ukraine_damages/server/ukr-damage-report/target/classes started by roman in /mnt/Windows/Repository/ukraine_damages/server/ukr-damage-report)
+2025-04-26 13:35:15.080 [main] INFO  c.e.u.UkrDamageReportApplication [rid:] [uid:] [action:] - The following 1 profile is active: "test"
+2025-04-26 13:35:15.766 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [rid:] [uid:] [action:] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-04-26 13:35:15.790 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [rid:] [uid:] [action:] - Finished Spring Data repository scanning in 14 ms. Found 0 JPA repository interfaces.
+2025-04-26 13:35:16.298 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer [rid:] [uid:] [action:] - Tomcat initialized with port 8080 (http)
+2025-04-26 13:35:16.314 [main] INFO  o.a.catalina.core.StandardService [rid:] [uid:] [action:] - Starting service [Tomcat]
+2025-04-26 13:35:16.315 [main] INFO  o.a.catalina.core.StandardEngine [rid:] [uid:] [action:] - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-04-26 13:35:16.377 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] [rid:] [uid:] [action:] - Initializing Spring embedded WebApplicationContext
+2025-04-26 13:35:16.377 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext [rid:] [uid:] [action:] - Root WebApplicationContext: initialization completed in 1245 ms
+2025-04-26 13:35:16.521 [main] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Starting...
+2025-04-26 13:35:16.903 [main] INFO  com.zaxxer.hikari.pool.HikariPool [rid:] [uid:] [action:] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@26f0141
+2025-04-26 13:35:16.906 [main] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Start completed.
+2025-04-26 13:35:16.981 [main] INFO  liquibase.database [rid:] [uid:] [action:] - Error fetching reserved words list from JDBC driver
+java.sql.SQLSyntaxErrorException: Unknown column 'RESERVED' in 'WHERE'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeQuery(StatementImpl.java:1208)
+	at com.mysql.cj.jdbc.DatabaseMetaDataUsingInfoSchema.getSQLKeywords(DatabaseMetaDataUsingInfoSchema.java:1189)
+	at com.zaxxer.hikari.pool.HikariProxyDatabaseMetaData.getSQLKeywords(HikariProxyDatabaseMetaData.java)
+	at liquibase.database.jvm.JdbcConnection.attached(JdbcConnection.java:57)
+	at liquibase.database.AbstractJdbcDatabase.setConnection(AbstractJdbcDatabase.java:163)
+	at liquibase.database.DatabaseFactory.findCorrectDatabaseImplementation(DatabaseFactory.java:133)
+	at liquibase.integration.spring.SpringLiquibase.createDatabase(SpringLiquibase.java:344)
+	at liquibase.integration.spring.SpringLiquibase.createLiquibase(SpringLiquibase.java:305)
+	at liquibase.integration.spring.SpringLiquibase.lambda$afterPropertiesSet$0(SpringLiquibase.java:247)
+	at liquibase.Scope.lambda$child$0(Scope.java:190)
+	at liquibase.Scope.child(Scope.java:199)
+	at liquibase.Scope.child(Scope.java:189)
+	at liquibase.Scope.child(Scope.java:168)
+	at liquibase.Scope.child(Scope.java:256)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:242)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:954)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:755)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1364)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1353)
+	at com.example.ukrdamagereport.UkrDamageReportApplication.main(UkrDamageReportApplication.java:10)
+2025-04-26 13:35:17.265 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Reading resource: db/changelog/master/00001-changelog-create-user-table.xml
+2025-04-26 13:35:17.417 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Creating database history table with name: hackathon_2025.DATABASECHANGELOG
+2025-04-26 13:35:17.534 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Reading from hackathon_2025.DATABASECHANGELOG
+2025-04-26 13:35:17.550 [main] WARN  liquibase.executor [rid:] [uid:] [action:] - Name 'PK_DATABASECHANGELOGLOCK' ignored for PRIMARY key.
+2025-04-26 13:35:17.591 [main] INFO  liquibase.lockservice [rid:] [uid:] [action:] - Successfully acquired change log lock
+2025-04-26 13:35:17.594 [main] INFO  liquibase.command [rid:] [uid:] [action:] - Using deploymentId: 5663717593
+2025-04-26 13:35:17.596 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Reading from hackathon_2025.DATABASECHANGELOG
+2025-04-26 13:35:17.618 [main] INFO  liquibase.ui [rid:] [uid:] [action:] - Running Changeset: db/changelog/master/00001-changelog-create-user-table.xml::create-place-table::Roman
+2025-04-26 13:35:17.623 [main] ERROR liquibase.changelog [rid:] [uid:] [action:] - ChangeSet db/changelog/master/00001-changelog-create-user-table.xml::create-place-table::Roman encountered an exception.
+liquibase.exception.DatabaseException: Table 'place' already exists [Failed SQL: (1050) CREATE TABLE hackathon_2025.place (id INT NOT NULL, oblast VARCHAR(255) NULL, type_of_infrastructure VARCHAR(255) NULL, date_of_event date NULL, source_name VARCHAR(255) NULL, source_date date NULL, source_link TEXT NULL, additional_sources TEXT NULL, extent_of_damage TEXT NULL, internal_filter_date date NULL, CONSTRAINT PK_PLACE PRIMARY KEY (id))]
+	at liquibase.executor.jvm.JdbcExecutor$ExecuteStatementCallback.doInStatement(JdbcExecutor.java:473)
+	at liquibase.executor.jvm.JdbcExecutor.execute(JdbcExecutor.java:80)
+	at liquibase.executor.jvm.JdbcExecutor.execute(JdbcExecutor.java:182)
+	at liquibase.executor.AbstractExecutor.execute(AbstractExecutor.java:141)
+	at liquibase.database.AbstractJdbcDatabase.executeStatements(AbstractJdbcDatabase.java:1176)
+	at liquibase.changelog.ChangeSet.execute(ChangeSet.java:764)
+	at liquibase.changelog.visitor.UpdateVisitor.executeAcceptedChange(UpdateVisitor.java:119)
+	at liquibase.changelog.visitor.UpdateVisitor.visit(UpdateVisitor.java:68)
+	at liquibase.changelog.ChangeLogIterator$2.lambda$run$0(ChangeLogIterator.java:133)
+	at liquibase.Scope.lambda$child$0(Scope.java:190)
+	at liquibase.Scope.child(Scope.java:199)
+	at liquibase.Scope.child(Scope.java:189)
+	at liquibase.Scope.child(Scope.java:168)
+	at liquibase.changelog.ChangeLogIterator$2.run(ChangeLogIterator.java:122)
+	at liquibase.Scope.lambda$child$0(Scope.java:190)
+	at liquibase.Scope.child(Scope.java:199)
+	at liquibase.Scope.child(Scope.java:189)
+	at liquibase.Scope.child(Scope.java:168)
+	at liquibase.Scope.child(Scope.java:256)
+	at liquibase.Scope.child(Scope.java:260)
+	at liquibase.changelog.ChangeLogIterator.run(ChangeLogIterator.java:89)
+	at liquibase.command.core.AbstractUpdateCommandStep.lambda$run$0(AbstractUpdateCommandStep.java:112)
+	at liquibase.Scope.lambda$child$0(Scope.java:190)
+	at liquibase.Scope.child(Scope.java:199)
+	at liquibase.Scope.child(Scope.java:189)
+	at liquibase.Scope.child(Scope.java:168)
+	at liquibase.command.core.AbstractUpdateCommandStep.run(AbstractUpdateCommandStep.java:110)
+	at liquibase.command.core.UpdateCommandStep.run(UpdateCommandStep.java:105)
+	at liquibase.command.CommandScope.execute(CommandScope.java:219)
+	at liquibase.Liquibase.lambda$update$0(Liquibase.java:245)
+	at liquibase.Scope.lambda$child$0(Scope.java:190)
+	at liquibase.Scope.child(Scope.java:199)
+	at liquibase.Scope.child(Scope.java:189)
+	at liquibase.Scope.child(Scope.java:168)
+	at liquibase.Liquibase.runInScope(Liquibase.java:1436)
+	at liquibase.Liquibase.update(Liquibase.java:234)
+	at liquibase.Liquibase.update(Liquibase.java:212)
+	at liquibase.integration.spring.SpringLiquibase.performUpdate(SpringLiquibase.java:297)
+	at liquibase.integration.spring.SpringLiquibase.lambda$afterPropertiesSet$0(SpringLiquibase.java:249)
+	at liquibase.Scope.lambda$child$0(Scope.java:190)
+	at liquibase.Scope.child(Scope.java:199)
+	at liquibase.Scope.child(Scope.java:189)
+	at liquibase.Scope.child(Scope.java:168)
+	at liquibase.Scope.child(Scope.java:256)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:242)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:954)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:755)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1364)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1353)
+	at com.example.ukrdamagereport.UkrDamageReportApplication.main(UkrDamageReportApplication.java:10)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'place' already exists
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:770)
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:653)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at liquibase.executor.jvm.JdbcExecutor$ExecuteStatementCallback.doInStatement(JdbcExecutor.java:467)
+	... 63 common frames omitted
+2025-04-26 13:35:17.631 [main] INFO  liquibase.util [rid:] [uid:] [action:] - UPDATE SUMMARY
+2025-04-26 13:35:17.632 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Run:                          0
+2025-04-26 13:35:17.632 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Previously run:               0
+2025-04-26 13:35:17.632 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Filtered out:                 0
+2025-04-26 13:35:17.632 [main] INFO  liquibase.util [rid:] [uid:] [action:] - -------------------------------
+2025-04-26 13:35:17.632 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Total change sets:            0
+2025-04-26 13:35:17.634 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Update summary generated
+2025-04-26 13:35:17.636 [main] INFO  liquibase.command [rid:] [uid:] [action:] - Update command encountered an exception.
+2025-04-26 13:35:17.638 [main] INFO  liquibase.lockservice [rid:] [uid:] [action:] - Successfully released change log lock
+2025-04-26 13:35:17.640 [main] INFO  liquibase.command [rid:] [uid:] [action:] - Logging exception.
+2025-04-26 13:35:17.640 [main] INFO  liquibase.ui [rid:] [uid:] [action:] - ERROR: Exception Details
+2025-04-26 13:35:17.641 [main] INFO  liquibase.ui [rid:] [uid:] [action:] - ERROR: Exception Primary Class:  SQLSyntaxErrorException
+2025-04-26 13:35:17.641 [main] INFO  liquibase.ui [rid:] [uid:] [action:] - ERROR: Exception Primary Reason:  Table 'place' already exists
+2025-04-26 13:35:17.641 [main] INFO  liquibase.ui [rid:] [uid:] [action:] - ERROR: Exception Primary Source:  MySQL 11.7.2-MariaDB
+2025-04-26 13:35:17.641 [main] INFO  liquibase.command [rid:] [uid:] [action:] - Command execution complete
+2025-04-26 13:35:17.642 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext [rid:] [uid:] [action:] - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'liquibase' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: liquibase.exception.CommandExecutionException: liquibase.exception.LiquibaseException: liquibase.exception.MigrationFailedException: Migration failed for changeset db/changelog/master/00001-changelog-create-user-table.xml::create-place-table::Roman:
+     Reason: liquibase.exception.DatabaseException: Table 'place' already exists [Failed SQL: (1050) CREATE TABLE hackathon_2025.place (id INT NOT NULL, oblast VARCHAR(255) NULL, type_of_infrastructure VARCHAR(255) NULL, date_of_event date NULL, source_name VARCHAR(255) NULL, source_date date NULL, source_link TEXT NULL, additional_sources TEXT NULL, extent_of_damage TEXT NULL, internal_filter_date date NULL, CONSTRAINT PK_PLACE PRIMARY KEY (id))]
+2025-04-26 13:35:17.643 [main] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Shutdown initiated...
+2025-04-26 13:35:17.652 [main] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Shutdown completed.
+2025-04-26 13:35:17.656 [main] INFO  o.a.catalina.core.StandardService [rid:] [uid:] [action:] - Stopping service [Tomcat]
+2025-04-26 13:35:17.665 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger [rid:] [uid:] [action:] - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-04-26 13:35:17.688 [main] ERROR o.s.boot.SpringApplication [rid:] [uid:] [action:] - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'liquibase' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: liquibase.exception.CommandExecutionException: liquibase.exception.LiquibaseException: liquibase.exception.MigrationFailedException: Migration failed for changeset db/changelog/master/00001-changelog-create-user-table.xml::create-place-table::Roman:
+     Reason: liquibase.exception.DatabaseException: Table 'place' already exists [Failed SQL: (1050) CREATE TABLE hackathon_2025.place (id INT NOT NULL, oblast VARCHAR(255) NULL, type_of_infrastructure VARCHAR(255) NULL, date_of_event date NULL, source_name VARCHAR(255) NULL, source_date date NULL, source_link TEXT NULL, additional_sources TEXT NULL, extent_of_damage TEXT NULL, internal_filter_date date NULL, CONSTRAINT PK_PLACE PRIMARY KEY (id))]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:954)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:755)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1364)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1353)
+	at com.example.ukrdamagereport.UkrDamageReportApplication.main(UkrDamageReportApplication.java:10)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: liquibase.exception.CommandExecutionException: liquibase.exception.LiquibaseException: liquibase.exception.MigrationFailedException: Migration failed for changeset db/changelog/master/00001-changelog-create-user-table.xml::create-place-table::Roman:
+     Reason: liquibase.exception.DatabaseException: Table 'place' already exists [Failed SQL: (1050) CREATE TABLE hackathon_2025.place (id INT NOT NULL, oblast VARCHAR(255) NULL, type_of_infrastructure VARCHAR(255) NULL, date_of_event date NULL, source_name VARCHAR(255) NULL, source_date date NULL, source_link TEXT NULL, additional_sources TEXT NULL, extent_of_damage TEXT NULL, internal_filter_date date NULL, CONSTRAINT PK_PLACE PRIMARY KEY (id))]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1806)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313)
+	... 10 common frames omitted
+Caused by: liquibase.exception.UnexpectedLiquibaseException: liquibase.exception.CommandExecutionException: liquibase.exception.LiquibaseException: liquibase.exception.MigrationFailedException: Migration failed for changeset db/changelog/master/00001-changelog-create-user-table.xml::create-place-table::Roman:
+     Reason: liquibase.exception.DatabaseException: Table 'place' already exists [Failed SQL: (1050) CREATE TABLE hackathon_2025.place (id INT NOT NULL, oblast VARCHAR(255) NULL, type_of_infrastructure VARCHAR(255) NULL, date_of_event date NULL, source_name VARCHAR(255) NULL, source_date date NULL, source_link TEXT NULL, additional_sources TEXT NULL, extent_of_damage TEXT NULL, internal_filter_date date NULL, CONSTRAINT PK_PLACE PRIMARY KEY (id))]
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:259)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802)
+	... 17 common frames omitted
+Caused by: liquibase.exception.CommandExecutionException: liquibase.exception.LiquibaseException: liquibase.exception.MigrationFailedException: Migration failed for changeset db/changelog/master/00001-changelog-create-user-table.xml::create-place-table::Roman:
+     Reason: liquibase.exception.DatabaseException: Table 'place' already exists [Failed SQL: (1050) CREATE TABLE hackathon_2025.place (id INT NOT NULL, oblast VARCHAR(255) NULL, type_of_infrastructure VARCHAR(255) NULL, date_of_event date NULL, source_name VARCHAR(255) NULL, source_date date NULL, source_link TEXT NULL, additional_sources TEXT NULL, extent_of_damage TEXT NULL, internal_filter_date date NULL, CONSTRAINT PK_PLACE PRIMARY KEY (id))]
+	at liquibase.command.CommandScope.execute(CommandScope.java:257)
+	at liquibase.Liquibase.lambda$update$0(Liquibase.java:245)
+	at liquibase.Scope.lambda$child$0(Scope.java:190)
+	at liquibase.Scope.child(Scope.java:199)
+	at liquibase.Scope.child(Scope.java:189)
+	at liquibase.Scope.child(Scope.java:168)
+	at liquibase.Liquibase.runInScope(Liquibase.java:1436)
+	at liquibase.Liquibase.update(Liquibase.java:234)
+	at liquibase.Liquibase.update(Liquibase.java:212)
+	at liquibase.integration.spring.SpringLiquibase.performUpdate(SpringLiquibase.java:297)
+	at liquibase.integration.spring.SpringLiquibase.lambda$afterPropertiesSet$0(SpringLiquibase.java:249)
+	at liquibase.Scope.lambda$child$0(Scope.java:190)
+	at liquibase.Scope.child(Scope.java:199)
+	at liquibase.Scope.child(Scope.java:189)
+	at liquibase.Scope.child(Scope.java:168)
+	at liquibase.Scope.child(Scope.java:256)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:242)
+	... 19 common frames omitted
+Caused by: liquibase.exception.LiquibaseException: liquibase.exception.MigrationFailedException: Migration failed for changeset db/changelog/master/00001-changelog-create-user-table.xml::create-place-table::Roman:
+     Reason: liquibase.exception.DatabaseException: Table 'place' already exists [Failed SQL: (1050) CREATE TABLE hackathon_2025.place (id INT NOT NULL, oblast VARCHAR(255) NULL, type_of_infrastructure VARCHAR(255) NULL, date_of_event date NULL, source_name VARCHAR(255) NULL, source_date date NULL, source_link TEXT NULL, additional_sources TEXT NULL, extent_of_damage TEXT NULL, internal_filter_date date NULL, CONSTRAINT PK_PLACE PRIMARY KEY (id))]
+	at liquibase.changelog.ChangeLogIterator.run(ChangeLogIterator.java:151)
+	at liquibase.command.core.AbstractUpdateCommandStep.lambda$run$0(AbstractUpdateCommandStep.java:112)
+	at liquibase.Scope.lambda$child$0(Scope.java:190)
+	at liquibase.Scope.child(Scope.java:199)
+	at liquibase.Scope.child(Scope.java:189)
+	at liquibase.Scope.child(Scope.java:168)
+	at liquibase.command.core.AbstractUpdateCommandStep.run(AbstractUpdateCommandStep.java:110)
+	at liquibase.command.core.UpdateCommandStep.run(UpdateCommandStep.java:105)
+	at liquibase.command.CommandScope.execute(CommandScope.java:219)
+	... 35 common frames omitted
+Caused by: liquibase.exception.MigrationFailedException: Migration failed for changeset db/changelog/master/00001-changelog-create-user-table.xml::create-place-table::Roman:
+     Reason: liquibase.exception.DatabaseException: Table 'place' already exists [Failed SQL: (1050) CREATE TABLE hackathon_2025.place (id INT NOT NULL, oblast VARCHAR(255) NULL, type_of_infrastructure VARCHAR(255) NULL, date_of_event date NULL, source_name VARCHAR(255) NULL, source_date date NULL, source_link TEXT NULL, additional_sources TEXT NULL, extent_of_damage TEXT NULL, internal_filter_date date NULL, CONSTRAINT PK_PLACE PRIMARY KEY (id))]
+	at liquibase.changelog.ChangeSet.execute(ChangeSet.java:808)
+	at liquibase.changelog.visitor.UpdateVisitor.executeAcceptedChange(UpdateVisitor.java:119)
+	at liquibase.changelog.visitor.UpdateVisitor.visit(UpdateVisitor.java:68)
+	at liquibase.changelog.ChangeLogIterator$2.lambda$run$0(ChangeLogIterator.java:133)
+	at liquibase.Scope.lambda$child$0(Scope.java:190)
+	at liquibase.Scope.child(Scope.java:199)
+	at liquibase.Scope.child(Scope.java:189)
+	at liquibase.Scope.child(Scope.java:168)
+	at liquibase.changelog.ChangeLogIterator$2.run(ChangeLogIterator.java:122)
+	at liquibase.Scope.lambda$child$0(Scope.java:190)
+	at liquibase.Scope.child(Scope.java:199)
+	at liquibase.Scope.child(Scope.java:189)
+	at liquibase.Scope.child(Scope.java:168)
+	at liquibase.Scope.child(Scope.java:256)
+	at liquibase.Scope.child(Scope.java:260)
+	at liquibase.changelog.ChangeLogIterator.run(ChangeLogIterator.java:89)
+	... 43 common frames omitted
+Caused by: liquibase.exception.DatabaseException: Table 'place' already exists [Failed SQL: (1050) CREATE TABLE hackathon_2025.place (id INT NOT NULL, oblast VARCHAR(255) NULL, type_of_infrastructure VARCHAR(255) NULL, date_of_event date NULL, source_name VARCHAR(255) NULL, source_date date NULL, source_link TEXT NULL, additional_sources TEXT NULL, extent_of_damage TEXT NULL, internal_filter_date date NULL, CONSTRAINT PK_PLACE PRIMARY KEY (id))]
+	at liquibase.executor.jvm.JdbcExecutor$ExecuteStatementCallback.doInStatement(JdbcExecutor.java:473)
+	at liquibase.executor.jvm.JdbcExecutor.execute(JdbcExecutor.java:80)
+	at liquibase.executor.jvm.JdbcExecutor.execute(JdbcExecutor.java:182)
+	at liquibase.executor.AbstractExecutor.execute(AbstractExecutor.java:141)
+	at liquibase.database.AbstractJdbcDatabase.executeStatements(AbstractJdbcDatabase.java:1176)
+	at liquibase.changelog.ChangeSet.execute(ChangeSet.java:764)
+	... 58 common frames omitted
+Caused by: java.sql.SQLSyntaxErrorException: Table 'place' already exists
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:770)
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:653)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at liquibase.executor.jvm.JdbcExecutor$ExecuteStatementCallback.doInStatement(JdbcExecutor.java:467)
+	... 63 common frames omitted
+2025-04-26 14:12:48.101 [main] INFO  c.e.u.UkrDamageReportApplication [rid:] [uid:] [action:] - Starting UkrDamageReportApplication using Java 24.0.1 with PID 26718 (/mnt/Windows/Repository/ukraine_damages/server/ukr-damage-report/target/classes started by roman in /mnt/Windows/Repository/ukraine_damages/server/ukr-damage-report)
+2025-04-26 14:12:48.104 [main] INFO  c.e.u.UkrDamageReportApplication [rid:] [uid:] [action:] - The following 1 profile is active: "test"
+2025-04-26 14:12:48.779 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [rid:] [uid:] [action:] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-04-26 14:12:48.803 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [rid:] [uid:] [action:] - Finished Spring Data repository scanning in 14 ms. Found 0 JPA repository interfaces.
+2025-04-26 14:12:49.300 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer [rid:] [uid:] [action:] - Tomcat initialized with port 8080 (http)
+2025-04-26 14:12:49.320 [main] INFO  o.a.catalina.core.StandardService [rid:] [uid:] [action:] - Starting service [Tomcat]
+2025-04-26 14:12:49.321 [main] INFO  o.a.catalina.core.StandardEngine [rid:] [uid:] [action:] - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-04-26 14:12:49.372 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] [rid:] [uid:] [action:] - Initializing Spring embedded WebApplicationContext
+2025-04-26 14:12:49.373 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext [rid:] [uid:] [action:] - Root WebApplicationContext: initialization completed in 1219 ms
+2025-04-26 14:12:49.523 [main] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Starting...
+2025-04-26 14:12:49.905 [main] INFO  com.zaxxer.hikari.pool.HikariPool [rid:] [uid:] [action:] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6c0b51da
+2025-04-26 14:12:49.907 [main] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Start completed.
+2025-04-26 14:12:49.983 [main] INFO  liquibase.database [rid:] [uid:] [action:] - Error fetching reserved words list from JDBC driver
+java.sql.SQLSyntaxErrorException: Unknown column 'RESERVED' in 'WHERE'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeQuery(StatementImpl.java:1208)
+	at com.mysql.cj.jdbc.DatabaseMetaDataUsingInfoSchema.getSQLKeywords(DatabaseMetaDataUsingInfoSchema.java:1189)
+	at com.zaxxer.hikari.pool.HikariProxyDatabaseMetaData.getSQLKeywords(HikariProxyDatabaseMetaData.java)
+	at liquibase.database.jvm.JdbcConnection.attached(JdbcConnection.java:57)
+	at liquibase.database.AbstractJdbcDatabase.setConnection(AbstractJdbcDatabase.java:163)
+	at liquibase.database.DatabaseFactory.findCorrectDatabaseImplementation(DatabaseFactory.java:133)
+	at liquibase.integration.spring.SpringLiquibase.createDatabase(SpringLiquibase.java:344)
+	at liquibase.integration.spring.SpringLiquibase.createLiquibase(SpringLiquibase.java:305)
+	at liquibase.integration.spring.SpringLiquibase.lambda$afterPropertiesSet$0(SpringLiquibase.java:247)
+	at liquibase.Scope.lambda$child$0(Scope.java:190)
+	at liquibase.Scope.child(Scope.java:199)
+	at liquibase.Scope.child(Scope.java:189)
+	at liquibase.Scope.child(Scope.java:168)
+	at liquibase.Scope.child(Scope.java:256)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:242)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:954)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:755)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1364)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1353)
+	at com.example.ukrdamagereport.UkrDamageReportApplication.main(UkrDamageReportApplication.java:10)
+2025-04-26 14:12:50.296 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Reading resource: db/changelog/master/00001-changelog-create-user-table.xml
+2025-04-26 14:12:50.449 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Creating database history table with name: hackathon_2025.DATABASECHANGELOG
+2025-04-26 14:12:50.589 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Reading from hackathon_2025.DATABASECHANGELOG
+2025-04-26 14:12:50.608 [main] WARN  liquibase.executor [rid:] [uid:] [action:] - Name 'PK_DATABASECHANGELOGLOCK' ignored for PRIMARY key.
+2025-04-26 14:12:50.659 [main] INFO  liquibase.lockservice [rid:] [uid:] [action:] - Successfully acquired change log lock
+2025-04-26 14:12:50.661 [main] INFO  liquibase.command [rid:] [uid:] [action:] - Using deploymentId: 5665970661
+2025-04-26 14:12:50.664 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Reading from hackathon_2025.DATABASECHANGELOG
+2025-04-26 14:12:50.687 [main] INFO  liquibase.ui [rid:] [uid:] [action:] - Running Changeset: db/changelog/master/00001-changelog-create-user-table.xml::create-place-table::Roman
+2025-04-26 14:12:50.698 [main] WARN  liquibase.executor [rid:] [uid:] [action:] - Name 'PK_PLACE' ignored for PRIMARY key.
+2025-04-26 14:12:50.699 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Table place created
+2025-04-26 14:12:50.700 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - ChangeSet db/changelog/master/00001-changelog-create-user-table.xml::create-place-table::Roman ran successfully in 12ms
+2025-04-26 14:12:50.711 [main] INFO  liquibase.util [rid:] [uid:] [action:] - UPDATE SUMMARY
+2025-04-26 14:12:50.711 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Run:                          1
+2025-04-26 14:12:50.712 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Previously run:               0
+2025-04-26 14:12:50.712 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Filtered out:                 0
+2025-04-26 14:12:50.712 [main] INFO  liquibase.util [rid:] [uid:] [action:] - -------------------------------
+2025-04-26 14:12:50.712 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Total change sets:            1
+2025-04-26 14:12:50.713 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Update summary generated
+2025-04-26 14:12:50.717 [main] INFO  liquibase.command [rid:] [uid:] [action:] - Update command completed successfully.
+2025-04-26 14:12:50.717 [main] INFO  liquibase.ui [rid:] [uid:] [action:] - Liquibase: Update has been successful. Rows affected: 1
+2025-04-26 14:12:50.720 [main] INFO  liquibase.lockservice [rid:] [uid:] [action:] - Successfully released change log lock
+2025-04-26 14:12:50.722 [main] INFO  liquibase.command [rid:] [uid:] [action:] - Command execution complete
+2025-04-26 14:12:50.821 [main] INFO  o.h.jpa.internal.util.LogHelper [rid:] [uid:] [action:] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-04-26 14:12:50.939 [main] INFO  org.hibernate.Version [rid:] [uid:] [action:] - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-04-26 14:12:50.993 [main] INFO  o.h.c.i.RegionFactoryInitiator [rid:] [uid:] [action:] - HHH000026: Second-level cache disabled
+2025-04-26 14:12:51.490 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo [rid:] [uid:] [action:] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-04-26 14:12:51.547 [main] WARN  o.h.e.j.e.i.JdbcEnvironmentInitiator [rid:] [uid:] [action:] - HHH000339: Could not obtain connection metadata: java.sql.SQLSyntaxErrorException: Unknown column 'RESERVED' in 'WHERE'
+2025-04-26 14:12:51.571 [main] WARN  org.hibernate.orm.deprecation [rid:] [uid:] [action:] - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-26 14:12:52.020 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator [rid:] [uid:] [action:] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-26 14:12:52.027 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [rid:] [uid:] [action:] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-04-26 14:12:52.081 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [rid:] [uid:] [action:] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-04-26 14:12:52.489 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer [rid:] [uid:] [action:] - Tomcat started on port 8080 (http) with context path '/'
+2025-04-26 14:12:52.495 [main] INFO  c.e.u.UkrDamageReportApplication [rid:] [uid:] [action:] - Started UkrDamageReportApplication in 5.125 seconds (process running for 5.697)
+2025-04-26 14:18:08.315 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [rid:] [uid:] [action:] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-04-26 14:18:08.317 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Shutdown initiated...
+2025-04-26 14:18:08.322 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Shutdown completed.
