@@ -8,7 +8,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SerperResponse {
     private SearchParameters searchParameters;
-    private List<ImageResult> images;  // Додано поле для зображень
+    private List<ImageResult> images;
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
