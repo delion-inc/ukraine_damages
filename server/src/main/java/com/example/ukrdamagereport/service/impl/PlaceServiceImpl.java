@@ -45,11 +45,5 @@ public class PlaceServiceImpl implements PlaceService {
                 .map(PlaceMapper::mapToPlaceDto)
                 .collect(Collectors.toList());
     }
-
-    @Override
-    public Place getPlaceById(Long id) {
-        return placeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Place not found with id: " + id));
-    }
 }
 
