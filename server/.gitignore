@@ -21,3 +21,13 @@ target/
 *.iml
 *.ipr
 logs
+
+### Project specific ###
+/src/main/resources/static/images/
+/uploads/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.webp
