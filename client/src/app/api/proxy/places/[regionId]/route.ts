@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-type Params = { regionId: string };
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 /**
  * GET handler for proxying requests to fetch places for a specific region with pagination
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: Params }
+  { params }: { params: Promise<{ regionId: string }> }
 ) {
   try {
-    const { regionId } = params;
+    const { regionId } = await params;
     const searchParams = request.nextUrl.searchParams;
     
     const page = searchParams.get('page') || '0';
@@ -31,7 +32,6 @@ export async function GET(
         'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
         'Pragma': 'no-cache'
       },
-      next: { revalidate: 0 },
       cache: 'no-store'
     });
 
