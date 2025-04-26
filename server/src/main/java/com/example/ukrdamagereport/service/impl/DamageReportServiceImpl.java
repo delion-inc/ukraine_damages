@@ -28,6 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -127,5 +128,13 @@ public class DamageReportServiceImpl implements DamageReportService {
             log.error("Error while deleting files: {}", e.getMessage());
             throw new RuntimeException("Failed to delete files", e);
         }
+    }
+
+    @Override
+    public List<DamageReportResponseDto> getAllDamageReports() {
+        return damageReportRepository.findAll()
+                .stream()
+                .map(damageReportMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

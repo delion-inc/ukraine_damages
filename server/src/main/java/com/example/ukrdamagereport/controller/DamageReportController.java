@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/damage-reports")
 @RequiredArgsConstructor
@@ -56,5 +58,10 @@ public class DamageReportController {
     public ResponseEntity<?> deleteAllDamageReports() {
         damageReportService.deleteAllImages();
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DamageReportResponseDto>> getDamageReports() {
+        return ResponseEntity.ok(damageReportService.getAllDamageReports());
     }
 }
