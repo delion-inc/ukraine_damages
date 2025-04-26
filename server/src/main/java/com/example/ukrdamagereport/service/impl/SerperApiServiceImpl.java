@@ -2,16 +2,17 @@ package com.example.ukrdamagereport.service.impl;
 
 import com.example.ukrdamagereport.Config.SerperConfig;
 import com.example.ukrdamagereport.dto.serper.res.SerperResponse;
+import com.example.ukrdamagereport.exception.SearchException;
 import com.example.ukrdamagereport.service.SerperApiService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -20,6 +21,7 @@ public class SerperApiServiceImpl implements SerperApiService {
 
     private final SerperConfig serperConfig;
     private final ObjectMapper objectMapper;
+    private static final String IMAGES_ENDPOINT = "https://google.serper.dev/images";
 
     @Override
     public SerperResponse search(String query) {
@@ -30,53 +32,38 @@ public class SerperApiServiceImpl implements SerperApiService {
             String enhancedQuery = enhanceQueryWithDestruction(query);
             log.debug("Making request with query: {}", enhancedQuery);
 
-            HttpResponse<String> response = Unirest.get(serperConfig.getApiUrl())
+            // Підготовка параметрів запиту
+            Map<String, Object> requestBody = new HashMap<>();
+            requestBody.put("q", enhancedQuery);
+            requestBody.put("gl", serperConfig.getGl());
+            requestBody.put("hl", serperConfig.getHl());
+
+            HttpResponse<String> response = Unirest.post(IMAGES_ENDPOINT)
                     .header("X-API-KEY", serperConfig.getApiKey())
-                    .queryString("q", enhancedQuery)
-                    .queryString("location", serperConfig.getLocation())
-                    .queryString("gl", serperConfig.getGl())
-                    .queryString("hl", serperConfig.getHl())
+                    .header("Content-Type", "application/json")
+                    .body(objectMapper.writeValueAsString(requestBody))
                     .asString();
+
+            log.debug("Received response with status: {}", response.getStatus());
 
             if (response.getStatus() != 200) {
                 log.error("API error response: {}", response.getBody());
-                throw new RuntimeException("API request failed with status: " + response.getStatus());
+                throw new SearchException("API request failed with status: " + response.getStatus());
             }
 
-            JsonNode rootNode = objectMapper.readTree(response.getBody());
-            JsonNode imagesNode = rootNode.get("images");
-
-            SerperResponse result = new SerperResponse();
-
-            if (imagesNode != null && imagesNode.isArray() && imagesNode.size() > 0) {
-                JsonNode firstImage = imagesNode.get(0);
-                SerperResponse.ImageResult imageResult = objectMapper.treeToValue(
-                        firstImage,
-                        SerperResponse.ImageResult.class
-                );
-                result.setImage(imageResult);
-                log.info("Successfully found image for query: {}", query);
-            } else {
-                log.warn("No images found for query: {}", query);
-            }
+            SerperResponse result = objectMapper.readValue(response.getBody(), SerperResponse.class);
+            logSearchResults(result, query);
 
             return result;
 
-        } catch (UnirestException e) {
-            log.error("Error making API request: {}", e.getMessage());
-            throw new RuntimeException("Failed to connect to Serper API", e);
-        } catch (JsonProcessingException e) {
-            log.error("Error parsing API response: {}", e.getMessage());
-            throw new RuntimeException("Failed to parse API response", e);
         } catch (Exception e) {
-            log.error("Unexpected error during search: {}", e.getMessage());
-            throw new RuntimeException("Error performing search", e);
+            log.error("Error during search process: {}", e.getMessage(), e);
+            throw new SearchException("Failed to process search request", e);
         }
     }
 
     private void validateQuery(String query) {
         if (query == null || query.trim().isEmpty()) {
-            log.error("Received empty search query");
             throw new IllegalArgumentException("Search query cannot be empty");
         }
     }
@@ -87,5 +74,13 @@ public class SerperApiServiceImpl implements SerperApiService {
             return trimmedQuery;
         }
         return String.format("%s destruction after attack", trimmedQuery);
+    }
+
+    private void logSearchResults(SerperResponse result, String query) {
+        if (result.getImages() != null && !result.getImages().isEmpty()) {
+            log.info("Found {} images for query: {}", result.getImages().size(), query);
+        } else {
+            log.warn("No images found for query: {}", query);
+        }
     }
 }

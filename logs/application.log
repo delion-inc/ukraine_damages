@@ -923,3 +923,89 @@ Caused by: com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot d
 2025-04-26 20:19:55.461 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [rid:] [uid:] [action:] - Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-04-26 20:19:55.463 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Shutdown initiated...
 2025-04-26 20:19:55.469 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Shutdown completed.
+2025-04-26 20:47:35.877 [main] INFO  c.e.u.UkrDamageReportApplication [rid:] [uid:] [action:] - Starting UkrDamageReportApplication using Java 24 with PID 11944 (C:\Users\New\Documents\WorkSpace\ukraine_damages\server\target\classes started by New in C:\Users\New\Documents\WorkSpace\ukraine_damages)
+2025-04-26 20:47:35.880 [main] INFO  c.e.u.UkrDamageReportApplication [rid:] [uid:] [action:] - The following 1 profile is active: "test"
+2025-04-26 20:47:36.641 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [rid:] [uid:] [action:] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-04-26 20:47:36.693 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [rid:] [uid:] [action:] - Finished Spring Data repository scanning in 46 ms. Found 2 JPA repository interfaces.
+2025-04-26 20:47:37.252 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer [rid:] [uid:] [action:] - Tomcat initialized with port 8080 (http)
+2025-04-26 20:47:37.266 [main] INFO  o.a.catalina.core.StandardService [rid:] [uid:] [action:] - Starting service [Tomcat]
+2025-04-26 20:47:37.266 [main] INFO  o.a.catalina.core.StandardEngine [rid:] [uid:] [action:] - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-04-26 20:47:37.318 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] [rid:] [uid:] [action:] - Initializing Spring embedded WebApplicationContext
+2025-04-26 20:47:37.318 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext [rid:] [uid:] [action:] - Root WebApplicationContext: initialization completed in 1400 ms
+2025-04-26 20:47:37.521 [main] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Starting...
+2025-04-26 20:47:37.821 [main] INFO  com.zaxxer.hikari.pool.HikariPool [rid:] [uid:] [action:] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5534e6f1
+2025-04-26 20:47:37.822 [main] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Start completed.
+2025-04-26 20:47:38.058 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Reading resource: db/changelog/master/00001-changelog-create-user-table.xml
+2025-04-26 20:47:38.137 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Reading resource: db/changelog/master/00002-changelog-create-damage-report-table.xml
+2025-04-26 20:47:38.269 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Reading from hackathon_2025.databasechangelog
+2025-04-26 20:47:38.309 [main] INFO  liquibase.ui [rid:] [uid:] [action:] - Database is up to date, no changesets to execute
+2025-04-26 20:47:38.311 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Reading from hackathon_2025.databasechangelog
+2025-04-26 20:47:38.318 [main] INFO  liquibase.util [rid:] [uid:] [action:] - UPDATE SUMMARY
+2025-04-26 20:47:38.318 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Run:                          0
+2025-04-26 20:47:38.318 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Previously run:               2
+2025-04-26 20:47:38.319 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Filtered out:                 0
+2025-04-26 20:47:38.319 [main] INFO  liquibase.util [rid:] [uid:] [action:] - -------------------------------
+2025-04-26 20:47:38.319 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Total change sets:            2
+2025-04-26 20:47:38.320 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Update summary generated
+2025-04-26 20:47:38.334 [main] INFO  liquibase.lockservice [rid:] [uid:] [action:] - Successfully released change log lock
+2025-04-26 20:47:38.337 [main] INFO  liquibase.command [rid:] [uid:] [action:] - Command execution complete
+2025-04-26 20:47:38.407 [main] INFO  o.h.jpa.internal.util.LogHelper [rid:] [uid:] [action:] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-04-26 20:47:38.449 [main] INFO  org.hibernate.Version [rid:] [uid:] [action:] - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-04-26 20:47:38.473 [main] INFO  o.h.c.i.RegionFactoryInitiator [rid:] [uid:] [action:] - HHH000026: Second-level cache disabled
+2025-04-26 20:47:38.700 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo [rid:] [uid:] [action:] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-04-26 20:47:38.735 [main] WARN  org.hibernate.orm.deprecation [rid:] [uid:] [action:] - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-26 20:47:39.560 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator [rid:] [uid:] [action:] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-26 20:47:39.563 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [rid:] [uid:] [action:] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-04-26 20:47:40.033 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [rid:] [uid:] [action:] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-04-26 20:47:40.669 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver [rid:] [uid:] [action:] - Exposing 1 endpoint beneath base path '/actuator'
+2025-04-26 20:47:40.736 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer [rid:] [uid:] [action:] - Tomcat started on port 8080 (http) with context path '/'
+2025-04-26 20:47:40.746 [main] INFO  c.e.u.UkrDamageReportApplication [rid:] [uid:] [action:] - Started UkrDamageReportApplication in 5.412 seconds (process running for 6.041)
+2025-04-26 20:47:40.951 [RMI TCP Connection(4)-10.4.185.58] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] [rid:] [uid:] [action:] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-04-26 20:47:40.951 [RMI TCP Connection(4)-10.4.185.58] INFO  o.s.web.servlet.DispatcherServlet [rid:] [uid:] [action:] - Initializing Servlet 'dispatcherServlet'
+2025-04-26 20:47:40.952 [RMI TCP Connection(4)-10.4.185.58] INFO  o.s.web.servlet.DispatcherServlet [rid:] [uid:] [action:] - Completed initialization in 0 ms
+2025-04-26 20:48:21.719 [http-nio-8080-exec-9] INFO  o.s.api.AbstractOpenApiResource [rid:] [uid:] [action:] - Init duration for springdoc-openapi is: 219 ms
+2025-04-26 20:48:34.818 [http-nio-8080-exec-10] INFO  c.e.u.s.impl.SerperApiServiceImpl [rid:] [uid:] [action:] - Starting search query: Stryiska St, 62
+2025-04-26 20:48:36.109 [http-nio-8080-exec-10] WARN  c.e.u.s.impl.SerperApiServiceImpl [rid:] [uid:] [action:] - No knowledge graph data found for query: Stryiska St, 62
+2025-04-26 20:49:17.422 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [rid:] [uid:] [action:] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-04-26 20:49:17.424 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Shutdown initiated...
+2025-04-26 20:49:17.430 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Shutdown completed.
+2025-04-26 20:50:09.589 [main] INFO  c.e.u.UkrDamageReportApplication [rid:] [uid:] [action:] - Starting UkrDamageReportApplication using Java 24 with PID 11616 (C:\Users\New\Documents\WorkSpace\ukraine_damages\server\target\classes started by New in C:\Users\New\Documents\WorkSpace\ukraine_damages)
+2025-04-26 20:50:09.592 [main] INFO  c.e.u.UkrDamageReportApplication [rid:] [uid:] [action:] - The following 1 profile is active: "test"
+2025-04-26 20:50:10.350 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [rid:] [uid:] [action:] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-04-26 20:50:10.402 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [rid:] [uid:] [action:] - Finished Spring Data repository scanning in 45 ms. Found 2 JPA repository interfaces.
+2025-04-26 20:50:10.958 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer [rid:] [uid:] [action:] - Tomcat initialized with port 8080 (http)
+2025-04-26 20:50:10.971 [main] INFO  o.a.catalina.core.StandardService [rid:] [uid:] [action:] - Starting service [Tomcat]
+2025-04-26 20:50:10.971 [main] INFO  o.a.catalina.core.StandardEngine [rid:] [uid:] [action:] - Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-04-26 20:50:11.020 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] [rid:] [uid:] [action:] - Initializing Spring embedded WebApplicationContext
+2025-04-26 20:50:11.021 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext [rid:] [uid:] [action:] - Root WebApplicationContext: initialization completed in 1392 ms
+2025-04-26 20:50:11.225 [main] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Starting...
+2025-04-26 20:50:11.525 [main] INFO  com.zaxxer.hikari.pool.HikariPool [rid:] [uid:] [action:] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1f3c5308
+2025-04-26 20:50:11.526 [main] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Start completed.
+2025-04-26 20:50:11.759 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Reading resource: db/changelog/master/00001-changelog-create-user-table.xml
+2025-04-26 20:50:11.840 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Reading resource: db/changelog/master/00002-changelog-create-damage-report-table.xml
+2025-04-26 20:50:11.976 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Reading from hackathon_2025.databasechangelog
+2025-04-26 20:50:12.013 [main] INFO  liquibase.ui [rid:] [uid:] [action:] - Database is up to date, no changesets to execute
+2025-04-26 20:50:12.015 [main] INFO  liquibase.changelog [rid:] [uid:] [action:] - Reading from hackathon_2025.databasechangelog
+2025-04-26 20:50:12.021 [main] INFO  liquibase.util [rid:] [uid:] [action:] - UPDATE SUMMARY
+2025-04-26 20:50:12.021 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Run:                          0
+2025-04-26 20:50:12.021 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Previously run:               2
+2025-04-26 20:50:12.022 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Filtered out:                 0
+2025-04-26 20:50:12.022 [main] INFO  liquibase.util [rid:] [uid:] [action:] - -------------------------------
+2025-04-26 20:50:12.022 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Total change sets:            2
+2025-04-26 20:50:12.023 [main] INFO  liquibase.util [rid:] [uid:] [action:] - Update summary generated
+2025-04-26 20:50:12.037 [main] INFO  liquibase.lockservice [rid:] [uid:] [action:] - Successfully released change log lock
+2025-04-26 20:50:12.039 [main] INFO  liquibase.command [rid:] [uid:] [action:] - Command execution complete
+2025-04-26 20:50:12.112 [main] INFO  o.h.jpa.internal.util.LogHelper [rid:] [uid:] [action:] - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-04-26 20:50:12.155 [main] INFO  org.hibernate.Version [rid:] [uid:] [action:] - HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-04-26 20:50:12.179 [main] INFO  o.h.c.i.RegionFactoryInitiator [rid:] [uid:] [action:] - HHH000026: Second-level cache disabled
+2025-04-26 20:50:12.404 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo [rid:] [uid:] [action:] - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-04-26 20:50:12.440 [main] WARN  org.hibernate.orm.deprecation [rid:] [uid:] [action:] - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-26 20:50:13.105 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator [rid:] [uid:] [action:] - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-26 20:50:13.107 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [rid:] [uid:] [action:] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-04-26 20:50:13.561 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [rid:] [uid:] [action:] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-04-26 20:50:14.180 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver [rid:] [uid:] [action:] - Exposing 1 endpoint beneath base path '/actuator'
+2025-04-26 20:50:14.245 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer [rid:] [uid:] [action:] - Tomcat started on port 8080 (http) with context path '/'
+2025-04-26 20:50:14.255 [main] INFO  c.e.u.UkrDamageReportApplication [rid:] [uid:] [action:] - Started UkrDamageReportApplication in 5.182 seconds (process running for 5.758)
+2025-04-26 20:50:14.694 [RMI TCP Connection(3)-10.4.185.58] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] [rid:] [uid:] [action:] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-04-26 20:50:14.694 [RMI TCP Connection(3)-10.4.185.58] INFO  o.s.web.servlet.DispatcherServlet [rid:] [uid:] [action:] - Initializing Servlet 'dispatcherServlet'
+2025-04-26 20:50:14.695 [RMI TCP Connection(3)-10.4.185.58] INFO  o.s.web.servlet.DispatcherServlet [rid:] [uid:] [action:] - Completed initialization in 1 ms
