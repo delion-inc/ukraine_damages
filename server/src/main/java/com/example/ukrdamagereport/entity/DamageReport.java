@@ -39,8 +39,12 @@ public class DamageReport {
     @Column(name = "construction_year")
     private Integer constructionYear;
 
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "additional_info")
-    private String additionalInfo;
+    @Column(name = "amount")
+    private Double amount;
+
+    @Column(name = "addition_description")
+    private String additionDescription;
 }
