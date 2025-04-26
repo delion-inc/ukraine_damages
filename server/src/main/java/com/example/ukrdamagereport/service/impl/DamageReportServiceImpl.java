@@ -3,10 +3,13 @@ package com.example.ukrdamagereport.service.impl;
 import com.example.ukrdamagereport.dto.report.DamageReportCreateDto;
 import com.example.ukrdamagereport.dto.report.DamageReportResponseDto;
 import com.example.ukrdamagereport.dto.python.PythonServiceResponse;
+import com.example.ukrdamagereport.dto.serper.res.SerperResponse;
 import com.example.ukrdamagereport.entity.DamageReport;
 import com.example.ukrdamagereport.mapper.DamageReportMapper;
 import com.example.ukrdamagereport.repository.DamageReportRepository;
 import com.example.ukrdamagereport.service.DamageReportService;
+import com.example.ukrdamagereport.service.SerperApiService;
+import com.example.ukrdamagereport.util.FileStorageUtil;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +27,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -31,8 +35,10 @@ import java.nio.file.Paths;
 public class DamageReportServiceImpl implements DamageReportService {
 
     private final DamageReportRepository damageReportRepository;
+    private final SerperApiService serperApiService;
     private final DamageReportMapper damageReportMapper;
     private final RestTemplate restTemplate;
+    private final FileStorageUtil fileStorageUtil;
 
     @Value("${app.upload-dir}")
     private String uploadDir;
@@ -45,6 +51,24 @@ public class DamageReportServiceImpl implements DamageReportService {
     public DamageReportResponseDto createPlace(@Valid DamageReportCreateDto reportDto) {
         MultiValueMap<String, Object> body;
         try {
+            if(reportDto.getPhotoAfter() == null) {
+                SerperResponse response = serperApiService.search(reportDto.getAddress());
+                List<SerperResponse.ImageResult> list = response.getImages();
+                if (!list.isEmpty()) {
+                    SerperResponse.ImageResult imageResult = list.getFirst();
+                    String downloadedImagePath = fileStorageUtil.downloadImageFromUrl(imageResult.getImageUrl());
+                    reportDto.setPhotoAfter(downloadedImagePath);
+                }
+            }
+            if(reportDto.getPhotoBefore() == null) {
+                SerperResponse response = serperApiService.search(reportDto.getAddress());
+                List<SerperResponse.ImageResult> list = response.getImages();
+                if (!list.isEmpty()) {
+                    SerperResponse.ImageResult imageResult = list.getFirst();
+                    String downloadedImagePath = fileStorageUtil.downloadImageFromUrl(imageResult.getImageUrl());
+                    reportDto.setPhotoBefore(downloadedImagePath);
+                }
+            }
             body = damageReportMapper.createDamageReportRequestToAi(reportDto);
         } catch (IOException e) {
             throw new RuntimeException(e);
