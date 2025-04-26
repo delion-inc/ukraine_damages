@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { MapContainer, GeoJSON, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { RegionSummary, PlaceData, getRegionPlaces } from '@/utils/api';
+import { RegionSummary, PlaceData, getPaginatedRegionPlaces } from '@/utils/api';
 
 declare global {
   interface Window {
@@ -35,6 +35,11 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
   const [isLoadingPlaces, setIsLoadingPlaces] = useState<boolean>(false);
   const [placesError, setPlacesError] = useState<string | null>(null);
   
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [hasMorePages, setHasMorePages] = useState<boolean>(true);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
+  const PAGE_SIZE = 10;
+  
   const { minDamage, maxDamage } = useMemo(() => {
     if (!damageData || damageData.length === 0) {
       return { minDamage: 0, maxDamage: 0 };
@@ -61,6 +66,85 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
       shadowUrl: '/leaflet/marker-shadow.png',
     });
   }, []);
+
+  useEffect(() => {
+    if (selectedRegionId) {
+      setCurrentPage(0);
+      setRegionPlaces([]);
+      setHasMorePages(true);
+    }
+  }, [selectedRegionId]);
+
+  useEffect(() => {
+    const fetchPlacesData = async () => {
+      if (!selectedRegionId) return;
+      
+      setIsLoadingPlaces(true);
+      setPlacesError(null);
+      
+      try {
+        const paginatedData = await getPaginatedRegionPlaces(selectedRegionId, 0, PAGE_SIZE);
+        
+        setRegionPlaces(paginatedData.content);
+        setCurrentPage(0);
+        
+        setHasMorePages(paginatedData.pageNumber < paginatedData.totalPages - 1);
+        
+      } catch (error) {
+        console.error(`Error fetching places for region ${selectedRegionId}:`, error);
+        setPlacesError('Failed to load places data');
+        setRegionPlaces([]);
+        setHasMorePages(false);
+      } finally {
+        setIsLoadingPlaces(false);
+      }
+    };
+    
+    if (selectedRegionId) {
+      fetchPlacesData();
+    }
+  }, [selectedRegionId]);
+
+  const loadMorePlaces = async () => {
+    if (!selectedRegionId || isLoadingMore || !hasMorePages) return;
+    
+    setIsLoadingMore(true);
+    
+    try {
+      const nextPage = currentPage + 1;
+      
+      const paginatedData = await getPaginatedRegionPlaces(
+        selectedRegionId, 
+        nextPage, 
+        PAGE_SIZE
+      );
+      
+      if (paginatedData.content.length > 0) {
+        const newContent = paginatedData.content;
+        
+        const existingIds = new Set(regionPlaces.map(place => place.id));
+        const uniqueNewItems = newContent.filter(item => !existingIds.has(item.id));
+        
+        
+        if (uniqueNewItems.length > 0) {
+          setRegionPlaces(prevPlaces => [...prevPlaces, ...uniqueNewItems]);
+          
+          setCurrentPage(nextPage);
+          
+          setHasMorePages(paginatedData.pageNumber < paginatedData.totalPages - 1);
+        } else {
+          setHasMorePages(false);
+        }
+      } else {
+        setHasMorePages(false);
+      }
+    } catch (error) {
+      console.error(`Error fetching more places for region ${selectedRegionId}:`, error);
+      setPlacesError('Failed to load more places');
+    } finally {
+      setIsLoadingMore(false);
+    }
+  };
 
   const position: [number, number] = [49.0275, 31.4828];
   
@@ -99,8 +183,8 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
       'Київська': 'kyivska',
       'Харківська область': 'kharkivska',
       'Харківська': 'kharkivska',
-      'Одеська область': 'odesska',
-      'Одеська': 'odesska',
+      'Одеська область': 'odeska',
+      'Одеська': 'odeska',
       'Дніпропетровська область': 'dnipropetrovska',
       'Дніпропетровська': 'dnipropetrovska',
       'Закарпатська область': 'zakarpatska',
@@ -115,8 +199,8 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
       'Донецька': 'donetska',
       'Луганська область': 'luhanska',
       'Луганська': 'luhanska',
-      'Івано-Франківська область': 'ivano-frankivska',
-      'Івано-Франківська': 'ivano-frankivska',
+      'Івано-Франківська область': 'ivano_frankivska',
+      'Івано-Франківська': 'ivano_frankivska',
       'Тернопільська область': 'ternopilska',
       'Тернопільська': 'ternopilska',
       'Вінницька область': 'vinnytska',
@@ -223,144 +307,63 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
   }, [minDamage, maxDamage]);
   
   const formatNumber = (num: number): string => {
+    if (!num) return '0';
     return new Intl.NumberFormat('uk-UA').format(num);
   };
 
-  useEffect(() => {
-    const fetchPlacesData = async () => {
-      if (!selectedRegionId) return;
-      
-      setIsLoadingPlaces(true);
-      setPlacesError(null);
-      
-      try {
-        const placesData = await getRegionPlaces(selectedRegionId);
-        setRegionPlaces(placesData);
-      } catch (error) {
-        console.error(`Error fetching places for region ${selectedRegionId}:`, error);
-        setPlacesError('Failed to load places data');
-        setRegionPlaces([]);
-      } finally {
-        setIsLoadingPlaces(false);
-      }
-    };
-    
-    if (selectedRegionId) {
-      fetchPlacesData();
-    }
-  }, [selectedRegionId]);
-
-  // Define regionStyle first
-  const regionStyle = useCallback((feature?: GeoJSON.Feature) => {
-    const regionName = getRegionName(feature);
-    const damage = getRegionDamage(feature);
-    const isSelected = regionName === selectedRegion;
-    const fillColor = getDamageColor(damage);
-    
-    return {
-      fillColor: isSelected ? '#ff7800' : fillColor,
-      weight: isSelected ? 3 : 2,
-      opacity: 1,
-      color: isSelected ? '#333' : '#666',
-      dashArray: isSelected ? '' : '3',
-      fillOpacity: isSelected ? 0.7 : 0.65
-    };
-  }, [getRegionName, selectedRegion, getDamageColor, getRegionDamage]);
-
-  // Use regionStyleRef to avoid the circular dependency
-  const regionStyleRef = useRef(regionStyle);
-  useEffect(() => {
-    regionStyleRef.current = regionStyle;
-  }, [regionStyle]);
-
-  const onEachFeature = useCallback((feature: GeoJSON.Feature, layer: L.Layer) => {
-    const regionName = getRegionName(feature);
-    const damage = getRegionDamage(feature);
-    
-    if (regionName) {
-      const popupContent = damage !== null 
-        ? `<div class="font-bold text-lg">${regionName}</div>
-           <div class="text-md">Кількість пошкоджених об&apos;єктів: ${damage}</div>`
-        : `<div class="font-bold text-lg">${regionName}</div>
-           <div class="text-md">Немає даних про пошкодження</div>`;
-      
-      layer.bindPopup(popupContent);
-      
-      const tooltipLayer = layer as L.Path;
-      tooltipLayer.bindTooltip(regionName, {
-        permanent: true,
-        direction: 'center',
-        className: 'region-label'
-      });
-    }
-    
-    layer.on({
-      mouseover: (e: L.LeafletEvent) => {
-        const layer = e.target as L.Path;
-        layer.setStyle({
-          weight: 3,
-          color: '#333',
-          dashArray: '',
-          fillOpacity: 0.7
-        });
-        layer.bringToFront();
-      },
-      mouseout: (e: L.LeafletEvent) => {
-        if (geoJsonData) {
-          const geoJson = e.target as L.Path;
-          const path = e.target as ExtendedPath;
-          const regionName = getRegionName(path.feature);
-          
-          if (regionName === selectedRegion) {
-            geoJson.setStyle({
-              weight: 3,
-              color: '#333',
-              dashArray: '',
-              fillOpacity: 0.7
-            });
-          } else {
-            // Use the ref to avoid circular dependency
-            geoJson.setStyle(regionStyleRef.current(path.feature));
-          }
-        }
-      },
-      click: (e: L.LeafletEvent) => {
-        const path = e.target as ExtendedPath;
-        if (path.feature) {
-          const regionName = getRegionName(path.feature);
-          const damage = getRegionDamage(path.feature);
-          const regionId = getRegionId(path.feature);
-          
-          if (regionName) {
-            setSelectedRegion(regionName);
-            setSelectedDamage(damage);
-            setSelectedRegionId(regionId);
-            setSidebarOpen(true);
-            
-            const layer = e.target as L.Path;
-            layer.setStyle({
-              weight: 3,
-              color: '#333',
-              dashArray: '',
-              fillOpacity: 0.7
-            });
-          }
-        }
-      }
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('uk-UA', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
     });
-  }, [getRegionName, geoJsonData, selectedRegion, getRegionDamage, getRegionId]);
+  };
 
-  const geoJsonLayer = useMemo(() => {
-    if (!geoJsonData) return null;
+  const getExtentOfDamage = (extentOfDamage: string): string => {
+    const damageMap: Record<string, string> = {
+      'Partially damaged': 'Частково пошкоджено',
+      'Destroyed': 'Повністю зруйновано'
+    };
     
-    return (
-      <GeoJSON 
-        data={geoJsonData} 
-        style={regionStyle}
-        onEachFeature={onEachFeature}
-      />
-    );
-  }, [geoJsonData, regionStyle, onEachFeature]);
+    return damageMap[extentOfDamage] || extentOfDamage;
+  };
+
+  const getInfrastructureLabel = (type: string): string => {
+    const typeMap: Record<string, string> = {
+      'WAREHOUSE': 'Склад',
+      'AIRCRAFT_REPAIR_PLANT': 'Авіаремонтний завод',
+      'BRIDGE': 'Міст',
+      'OIL_DEPOT': 'Нафтобаза',
+      'GOVERNMENT_FACILITIES': 'Державні установи',
+      'FUEL_DEPOT': 'Паливний склад',
+      'EDUCATION_FACILITY': 'Освітній заклад (школа тощо)',
+      'RELIGIOUS_FACILITIES': 'Релігійні споруди',
+      'AIRPORT': 'Аеропорт',
+      'HEALTH_FACILITY': 'Медичний заклад (лікарня, клініка)',
+      'INDUSTRIAL_BUSINESS_ENTERPRISE': 'Промислові/Бізнес об\'єкти',
+      'TELECOMMUNICATIONS': 'Телекомунікації',
+      'CHEMICAL_STORAGE_UNIT': 'Сховище хімічних речовин',
+      'ELECTRICITY_SUPPLY_SYSTEM': 'Система електропостачання',
+      'NUCLEAR_UNIT': 'Ядерний об\'єкт',
+      'CULTURAL_FACILITIES': 'Культурні об\'єкти (музей, театр тощо)',
+      'RAILWAY': 'Залізниця',
+      'GAS_SUPPLY_SYSTEM': 'Система газопостачання',
+      'WATER_SUPPLY_SYSTEM': 'Система водопостачання',
+      'POWER_PLANT': 'Електростанція',
+      'HARBOR': 'Порт',
+      'ROAD_HIGHWAY': 'Дорога / Автомагістраль',
+      'AGRICULTURAL_FACILITIES': 'Сільськогосподарські об\'єкти',
+      'HEATING_AND_WATER_FACILITY': 'Об\'єкт тепло- та водопостачання',
+      'RESIDENTIAL': 'Житлова будівля',
+      'COMMERCIAL': 'Комерційна будівля',
+      'INDUSTRIAL': 'Промисловий об\'єкт',
+      'INFRASTRUCTURE': 'Інфраструктура',
+      'OTHER': 'Інше'
+    };
+    
+    return typeMap[type] || type;
+  };
 
   const MapBoundaries = () => {
     const map = useMap();
@@ -410,60 +413,6 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
     );
   };
 
-  const formatDate = (dateString: string): string => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('uk-UA', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    });
-  };
-
-  const getExtentOfDamage = (extentOfDamage: string): string => {
-    const damageMap: Record<string, string> = {
-      'Partially damaged': 'Частково пошкоджено',
-      'Destroyed': 'Повністю зруйновано'
-    };
-    
-    return damageMap[extentOfDamage] || extentOfDamage;
-  };
-
-  const getInfrastructureLabel = (type: string): string => {
-    const typeMap: Record<string, string> = {
-      'WAREHOUSE': 'Склад',
-      'AIRCRAFT_REPAIR_PLANT': 'Авіаремонтний завод',
-      'BRIDGE': 'Міст',
-      'OIL_DEPOT': 'Нафтобаза',
-      'GOVERNMENT_FACILITIES': 'Державні установи',
-      'FUEL_DEPOT': 'Паливний склад',
-      'EDUCATION_FACILITY': 'Освітній заклад (школа тощо)',
-      'RELIGIOUS_FACILITIES': 'Релігійні споруди',
-      'AIRPORT': 'Аеропорт',
-      'HEALTH_FACILITY': 'Медичний заклад (лікарня, клініка)',
-      'INDUSTRIAL_BUSINESS_ENTERPRISE': 'Промислові/Бізнес об&apos;єкти',
-      'TELECOMMUNICATIONS': 'Телекомунікації',
-      'CHEMICAL_STORAGE_UNIT': 'Сховище хімічних речовин',
-      'ELECTRICITY_SUPPLY_SYSTEM': 'Система електропостачання',
-      'NUCLEAR_UNIT': 'Ядерний об&apos;єкт',
-      'CULTURAL_FACILITIES': 'Культурні об&apos;єкти (музей, театр тощо)',
-      'RAILWAY': 'Залізниця',
-      'GAS_SUPPLY_SYSTEM': 'Система газопостачання',
-      'WATER_SUPPLY_SYSTEM': 'Система водопостачання',
-      'POWER_PLANT': 'Електростанція',
-      'HARBOR': 'Порт',
-      'ROAD_HIGHWAY': 'Дорога / Автомагістраль',
-      'AGRICULTURAL_FACILITIES': 'Сільськогосподарські об&apos;єкти',
-      'HEATING_AND_WATER_FACILITY': 'Об&apos;єкт тепло- та водопостачання',
-      'RESIDENTIAL': 'Житлова будівля',
-      'COMMERCIAL': 'Комерційна будівля',
-      'INDUSTRIAL': 'Промисловий об&apos;єкт',
-      'INFRASTRUCTURE': 'Інфраструктура',
-      'OTHER': 'Інше'
-    };
-    
-    return typeMap[type] || type;
-  };
-
   const Sidebar = () => {
     if (!sidebarOpen) return null;
     
@@ -491,59 +440,194 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
           
           <h3 className="text-lg font-semibold mb-3">Пошкоджені об&apos;єкти</h3>
           
-          {isLoadingPlaces ? (
+          {isLoadingPlaces && regionPlaces.length === 0 ? (
             <div className="flex justify-center p-4">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
             </div>
-          ) : placesError ? (
+          ) : placesError && regionPlaces.length === 0 ? (
             <div className="p-3 bg-red-50 text-red-500 rounded-md">
               <p>{placesError}</p>
             </div>
           ) : regionPlaces.length === 0 ? (
             <p className="text-gray-500 italic">Немає даних про пошкоджені об&apos;єкти</p>
           ) : (
-            <div className="space-y-4">
-              {regionPlaces.map(place => (
-                <div key={place.id} className="border border-gray-200 rounded-md p-3 hover:bg-gray-50">
-                  <div className="flex justify-between">
-                    <h4 className="font-medium">{getInfrastructureLabel(place.typeOfInfrastructure)}</h4>
-                    <span className="text-sm text-gray-500">{formatDate(place.dateOfEvent)}</span>
-                  </div>
-                  <div className="mt-2">
-                    <span className={`px-2 py-1 text-xs rounded-full ${
-                      place.extentOfDamage === 'Destroyed' 
-                        ? 'bg-red-100 text-red-800' 
-                        : place.extentOfDamage === 'Partially damaged'
-                          ? 'bg-yellow-100 text-yellow-800'
-                          : 'bg-gray-100 text-gray-800'
-                    }`}>
-                      {getExtentOfDamage(place.extentOfDamage)}
-                    </span>
-                  </div>
-                  {place.amount > 0 && (
-                    <p className="text-sm font-semibold mt-2">Збитки: {formatNumber(place.amount)} грн</p>
-                  )}
-                  <div className="text-xs text-gray-500 mt-2">
-                    <p>Джерело: {place.sourceName}</p>
-                    {place.sourceLink && (
-                      <a 
-                        href={place.sourceLink} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
-                      >
-                        Посилання
-                      </a>
+            <div>
+              <div className="mb-3 text-sm text-gray-500 border-b pb-2">
+                {selectedDamage !== null && regionPlaces.length < selectedDamage ? (
+                  <p>Показано {regionPlaces.length} із {selectedDamage} об&apos;єктів</p>
+                ) : (
+                  <p>Показано всі {regionPlaces.length} об&apos;єктів</p>
+                )}
+              </div>
+              <div className="space-y-4">
+                {regionPlaces.map(place => (
+                  <div key={place.id} className="border border-gray-200 rounded-md p-3 hover:bg-gray-50">
+                    <div className="flex justify-between">
+                      <h4 className="font-medium">{getInfrastructureLabel(place.typeOfInfrastructure)}</h4>
+                      <span className="text-sm text-gray-500">{formatDate(place.dateOfEvent)}</span>
+                    </div>
+                    <div className="mt-2">
+                      <span className={`px-2 py-1 text-xs rounded-full ${
+                        place.extentOfDamage === 'Destroyed' 
+                          ? 'bg-red-100 text-red-800' 
+                          : place.extentOfDamage === 'Partially damaged'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-gray-100 text-gray-800'
+                      }`}>
+                        {getExtentOfDamage(place.extentOfDamage)}
+                      </span>
+                    </div>
+                    {place.amount > 0 && (
+                      <p className="text-sm font-semibold mt-2">Збитки: {formatNumber(place.amount)} грн</p>
                     )}
+                    <div className="text-xs text-gray-500 mt-2">
+                      <p>Джерело: {place.sourceName}</p>
+                      {place.sourceLink && (
+                        <a 
+                          href={place.sourceLink} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline"
+                        >
+                          Посилання
+                        </a>
+                      )}
+                    </div>
                   </div>
+                ))}
+              </div>
+              
+              {hasMorePages && (
+                <div className="mt-6 flex justify-center">
+                  <button
+                    onClick={loadMorePlaces}
+                    disabled={isLoadingMore}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+                      ${isLoadingMore 
+                        ? 'bg-gray-200 text-gray-500 cursor-not-allowed' 
+                        : 'bg-blue-600 text-white hover:bg-blue-700'}`}
+                  >
+                    {isLoadingMore ? (
+                      <span className="flex items-center">
+                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Завантаження...
+                      </span>
+                    ) : 'Завантажити ще'}
+                  </button>
                 </div>
-              ))}
+              )}
+              
+              {placesError && regionPlaces.length > 0 && (
+                <div className="mt-4 p-3 bg-red-50 text-red-500 rounded-md text-sm">
+                  <p>{placesError}</p>
+                </div>
+              )}
             </div>
           )}
         </div>
       </div>
     );
   };
+
+  const regionStyle = useCallback((feature?: GeoJSON.Feature) => {
+    const regionName = getRegionName(feature);
+    const damage = getRegionDamage(feature);
+    const isSelected = regionName === selectedRegion;
+    const fillColor = getDamageColor(damage);
+    
+    return {
+      fillColor: isSelected ? '#ff7800' : fillColor,
+      weight: isSelected ? 3 : 2,
+      opacity: 1,
+      color: isSelected ? '#333' : '#666',
+      dashArray: isSelected ? '' : '3',
+      fillOpacity: isSelected ? 0.7 : 0.65
+    };
+  }, [getRegionName, selectedRegion, getDamageColor, getRegionDamage]);
+
+  const regionStyleRef = useRef(regionStyle);
+  useEffect(() => {
+    regionStyleRef.current = regionStyle;
+  }, [regionStyle]);
+
+  const onEachFeature = useCallback((feature: GeoJSON.Feature, layer: L.Layer) => {
+    const regionName = getRegionName(feature);
+    const damage = getRegionDamage(feature);
+    
+    if (regionName) {
+      const popupContent = damage !== null 
+        ? `<div class="font-bold text-lg">${regionName}</div>
+           <div class="text-md">Кількість пошкоджених об&#39;єктів: ${damage}</div>`
+        : `<div class="font-bold text-lg">${regionName}</div>
+           <div class="text-md">Немає даних про пошкодження</div>`;
+      
+      layer.bindPopup(popupContent);
+      
+      const tooltipLayer = layer as L.Path;
+      tooltipLayer.bindTooltip(regionName, {
+        permanent: true,
+        direction: 'center',
+        className: 'region-label'
+      });
+    }
+    
+    layer.on({
+      mouseover: (e: L.LeafletEvent) => {
+        const layer = e.target as L.Path;
+        layer.setStyle({
+          weight: 3,
+          color: '#333',
+          dashArray: '',
+          fillOpacity: 0.7
+        });
+        layer.bringToFront();
+      },
+      mouseout: (e: L.LeafletEvent) => {
+        if (geoJsonData) {
+          const geoJson = e.target as L.Path;
+          const path = e.target as ExtendedPath;
+          const regionName = getRegionName(path.feature);
+          
+          if (regionName === selectedRegion) {
+            geoJson.setStyle({
+              weight: 3,
+              color: '#333',
+              dashArray: '',
+              fillOpacity: 0.7
+            });
+          } else {
+            geoJson.setStyle(regionStyleRef.current(path.feature));
+          }
+        }
+      },
+      click: (e: L.LeafletEvent) => {
+        const path = e.target as ExtendedPath;
+        if (path.feature) {
+          const regionName = getRegionName(path.feature);
+          const damage = getRegionDamage(path.feature);
+          const regionId = getRegionId(path.feature);
+          
+          if (regionName) {
+            setSelectedRegion(regionName);
+            setSelectedDamage(damage);
+            setSelectedRegionId(regionId);
+            setSidebarOpen(true);
+            
+            const layer = e.target as L.Path;
+            layer.setStyle({
+              weight: 3,
+              color: '#333',
+              dashArray: '',
+              fillOpacity: 0.7
+            });
+          }
+        }
+      }
+    });
+  }, [getRegionName, geoJsonData, selectedRegion, getRegionDamage, getRegionId]);
 
   return (
     <div className="relative">
@@ -557,7 +641,13 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
         minZoom={6}
         zoomControl={true}
       >
-        {geoJsonLayer}
+        {geoJsonData && (
+          <GeoJSON 
+            data={geoJsonData} 
+            style={regionStyle}
+            onEachFeature={onEachFeature}
+          />
+        )}
         <MapBoundaries />
         <MapLegend />
       </MapContainer>
