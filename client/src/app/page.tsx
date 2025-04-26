@@ -1,102 +1,99 @@
-import Image from "next/image";
+'use client';
+
+import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+import { fallbackUkraineData, fetchUkraineRegions } from '@/utils/ukraineData';
+import { GeoJSON } from 'leaflet';
+
+// Dynamically import the map component to prevent SSR issues with Leaflet
+const UkraineMap = dynamic(() => import('@/components/UkraineMap'), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[600px] w-full bg-gray-100 rounded-lg flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+        <p className="text-lg">Завантаження карти...</p>
+      </div>
+    </div>
+  )
+});
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [regionsData, setRegionsData] = useState<GeoJSON.FeatureCollection | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setIsLoading(true);
+        const data = await fetchUkraineRegions();
+        setRegionsData(data);
+        setError(null);
+      } catch (err) {
+        console.error('Помилка завантаження даних областей України:', err);
+        setRegionsData(fallbackUkraineData);
+        setError('Не вдалося завантажити дані областей. Використовується базова карта.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  return (
+    <div className="min-h-screen p-4 md:p-8 pb-20 gap-8 font-[family-name:var(--font-geist-sans)]">
+      <header className="mb-8 max-w-4xl mx-auto">
+        <h1 className="text-3xl md:text-4xl font-bold mb-3 text-blue-800">Карта областей України</h1>
+        <p className="text-gray-600 text-lg">
+          Інтерактивна карта областей України з використанням Leaflet та OpenStreetMap. Натисніть на область, щоб побачити детальну інформацію.
+        </p>
+        {error && (
+          <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-md text-yellow-800">
+            ⚠️ {error}
+          </div>
+        )}
+      </header>
+      
+      <main className="max-w-6xl mx-auto">
+        {/* Map container */}
+        <div className="w-full h-full mb-8">
+          {isLoading ? (
+            <div className="h-[600px] w-full bg-gray-100 rounded-lg flex items-center justify-center">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+                <p className="text-lg">Завантаження карти...</p>
+              </div>
+            </div>
+          ) : regionsData && Object.keys(regionsData).length > 0 ? (
+            <UkraineMap geoJsonData={regionsData} />
+          ) : (
+            <div className="h-[600px] w-full bg-red-50 rounded-lg flex items-center justify-center">
+              <div className="text-center text-red-500">
+                <p className="text-lg font-bold">Помилка завантаження даних карти</p>
+                <p className="mt-2">Спробуйте оновити сторінку</p>
+              </div>
+            </div>
+          )}
+        </div>
+        
+        <div className="bg-gray-50 p-4 md:p-6 rounded-lg border border-gray-200 mt-8">
+          <h2 className="text-xl md:text-2xl font-bold mb-4 text-gray-800">Про карту</h2>
+          <p className="text-gray-700 mb-3">
+            Ця інтерактивна карта показує всі 24 області України з їх офіційними кордонами. 
+            Ви можете:
+          </p>
+          <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+            <li>Натиснути на будь-яку область, щоб побачити її назву</li>
+            <li>Використовувати колесико миші для масштабування карти</li>
+            <li>Переміщати карту, затиснувши ліву кнопку миші</li>
+          </ul>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      
+      <footer className="mt-10 pt-6 border-t border-gray-200 text-center text-gray-500 text-sm max-w-6xl mx-auto">
+        <p>© {new Date().getFullYear()} Карта Областей України</p>
       </footer>
     </div>
   );
