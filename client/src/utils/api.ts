@@ -2,162 +2,58 @@
  * API utilities for making requests to the server
  */
 
-// Mock data for regions summary (damage reports)
-const MOCK_REGIONS_SUMMARY = [
-  {
-    "regionId": "kyivska",
-    "regionName": "Київська область",
-    "totalDamage": 120000000
-  },
-  {
-    "regionId": "kharkivska",
-    "regionName": "Харківська область",
-    "totalDamage": 250000000
-  },
-  {
-    "regionId": "odesska",
-    "regionName": "Одеська область",
-    "totalDamage": 85000000
-  },
-  {
-    "regionId": "dnipropetrovska",
-    "regionName": "Дніпропетровська область",
-    "totalDamage": 180000000
-  },
-  {
-    "regionId": "zakarpatska",
-    "regionName": "Закарпатська область",
-    "totalDamage": 30000000
-  },
-  {
-    "regionId": "lvivska",
-    "regionName": "Львівська область",
-    "totalDamage": 45000000
-  },
-  {
-    "regionId": "chernihivska",
-    "regionName": "Чернігівська область",
-    "totalDamage": 140000000
-  },
-  {
-    "regionId": "zaporizka",
-    "regionName": "Запорізька область",
-    "totalDamage": 190000000
-  },
-  {
-    "regionId": "donetska",
-    "regionName": "Донецька область",
-    "totalDamage": 320000000
-  },
-  {
-    "regionId": "luhanska",
-    "regionName": "Луганська область",
-    "totalDamage": 280000000
-  },
-  {
-    "regionId": "ivano-frankivska",
-    "regionName": "Івано-Франківська область",
-    "totalDamage": 40000000
-  },
-  {
-    "regionId": "ternopilska",
-    "regionName": "Тернопільська область",
-    "totalDamage": 35000000
-  },
-  {
-    "regionId": "vinnytska",
-    "regionName": "Вінницька область",
-    "totalDamage": 70000000
-  },
-  {
-    "regionId": "mykolaivska",
-    "regionName": "Миколаївська область",
-    "totalDamage": 160000000
-  },
-  {
-    "regionId": "sumska",
-    "regionName": "Сумська область",
-    "totalDamage": 130000000
-  },
-  {
-    "regionId": "chernivetska",
-    "regionName": "Чернівецька область",
-    "totalDamage": 25000000
-  },
-  {
-    "regionId": "khmelnytska",
-    "regionName": "Хмельницька область",
-    "totalDamage": 55000000
-  },
-  {
-    "regionId": "cherkaska",
-    "regionName": "Черкаська область",
-    "totalDamage": 60000000
-  },
-  {
-    "regionId": "kirovohradska",
-    "regionName": "Кіровоградська область",
-    "totalDamage": 50000000
-  },
-  {
-    "regionId": "khersonska",
-    "regionName": "Херсонська область",
-    "totalDamage": 220000000
-  },
-  {
-    "regionId": "poltavska",
-    "regionName": "Полтавська область",
-    "totalDamage": 65000000
-  },
-  {
-    "regionId": "rivnenska",
-    "regionName": "Рівненська область",
-    "totalDamage": 38000000
-  },
-  {
-    "regionId": "volynska",
-    "regionName": "Волинська область",
-    "totalDamage": 32000000
-  },
-  {
-    "regionId": "zhytomyrska",
-    "regionName": "Житомирська область",
-    "totalDamage": 75000000
-  },
-  {
-    "regionId": "crimea",
-    "regionName": "АР Крим",
-    "totalDamage": 170000000
-  }
-];
-
 export interface RegionSummary {
   regionId: string;
   regionName: string;
   totalDamage: number;
 }
 
+export interface PlaceData {
+  id: number;
+  oblast: string;
+  oblastName: string;
+  typeOfInfrastructure: string;
+  dateOfEvent: string;
+  sourceName: string;
+  sourceDate: string;
+  sourceLink: string;
+  additionalSources: string;
+  extentOfDamage: string;
+  internalFilterDate: string;
+  amount: number;
+}
+
+// Base API URL
+const API_BASE_URL = '/api/proxy';
+
 /**
  * Get summary of damage reports by region
  */
 export async function getRegionsSummary(): Promise<RegionSummary[]> {
   try {
-    const response = await fetch('http://93.127.131.80:8080/api/v1/places');
+    const response = await fetch(`${API_BASE_URL}/places`);
     if (!response.ok) {
       throw new Error(`Failed to fetch regions summary: ${response.status}`);
     }
     return await response.json();
   } catch (error) {
     console.error('Error fetching regions data:', error);
-    // Fallback to mock data if the API call fails
-    return MOCK_REGIONS_SUMMARY;
+    throw error;
   }
 }
 
 /**
- * Отримати тестові дані напряму (для відлагодження)
+ * Get detailed place data for a specific region
  */
-export function getTestData(): RegionSummary[] {
-  console.log('Виклик getTestData');
-  return MOCK_REGIONS_SUMMARY;
+export async function getRegionPlaces(regionId: string): Promise<PlaceData[]> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/places/${regionId}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch region places: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(`Error fetching places for region ${regionId}:`, error);
+    throw error;
+  }
 } 

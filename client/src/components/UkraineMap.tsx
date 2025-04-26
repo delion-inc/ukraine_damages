@@ -1,207 +1,10 @@
 'use client';
 
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { MapContainer, GeoJSON, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { RegionSummary } from '@/utils/api';
-
-enum Region {
-  KYIVSKA = "KYIVSKA",
-  KHARKIVSKA = "KHARKIVSKA",
-  ODESSKA = "ODESSKA",
-  DNIPROPETROVSKA = "DNIPROPETROVSKA",
-  ZAKARPATSKA = "ZAKARPATSKA",
-  LVIVSKA = "LVIVSKA",
-  CHERNIHIVSKA = "CHERNIHIVSKA",
-  ZAPORIZKA = "ZAPORIZKA",
-  DONETSKA = "DONETSKA",
-  LUHANSKA = "LUHANSKA",
-  IVANO_FRANKIVSKA = "IVANO_FRANKIVSKA",
-  TERNOPILSKA = "TERNOPILSKA",
-  VINNYTSKA = "VINNYTSKA",
-  MYKOLAIVSKA = "MYKOLAIVSKA",
-  SUMSKA = "SUMSKA",
-  CHERNIVETSKA = "CHERNIVETSKA",
-  KHMELNYTSKA = "KHMELNYTSKA",
-  CHERKASKA = "CHERKASKA",
-  KIROVOHRADSKA = "KIROVOHRADSKA",
-  KHERSONSKA = "KHERSONSKA",
-  POLTAVSKA = "POLTAVSKA",
-  RIVNENSKA = "RIVNENSKA",
-  VOLYNSKA = "VOLYNSKA",
-  ZHYTOMYRSKA = "ZHYTOMYRSKA",
-  CRIMEA = "CRIMEA"
-}
-
-interface Place {
-  id: number;
-  oblast: Region;
-  typeOfInfrastructure: string;
-  dateOfEvent: string;
-  sourceName: string;
-  sourceDate: string;
-  sourceLink: string;
-  additionalSources: string;
-  extentOfDamage: string;
-  internalFilterDate: string;
-}
-
-const mockPlaces: Place[] = [
-  {
-    id: 1,
-    oblast: Region.KYIVSKA,
-    typeOfInfrastructure: "Житловий будинок",
-    dateOfEvent: "2022-03-01",
-    sourceName: "Укрінформ",
-    sourceDate: "2022-03-02",
-    sourceLink: "https://www.ukrinform.ua/example",
-    additionalSources: "BBC News",
-    extentOfDamage: "Пошкоджено 70% конструкції",
-    internalFilterDate: "2022-03-05"
-  },
-  {
-    id: 2,
-    oblast: Region.KYIVSKA,
-    typeOfInfrastructure: "Лікарня",
-    dateOfEvent: "2022-03-03",
-    sourceName: "Reuters",
-    sourceDate: "2022-03-03",
-    sourceLink: "https://www.reuters.com/example",
-    additionalSources: "CNN, Al Jazeera",
-    extentOfDamage: "Пошкоджено дах та вікна",
-    internalFilterDate: "2022-03-10"
-  },
-  {
-    id: 3,
-    oblast: Region.KHARKIVSKA,
-    typeOfInfrastructure: "Школа",
-    dateOfEvent: "2022-04-05",
-    sourceName: "Associated Press",
-    sourceDate: "2022-04-06",
-    sourceLink: "https://apnews.com/example",
-    additionalSources: "The Guardian",
-    extentOfDamage: "Повністю зруйнована",
-    internalFilterDate: "2022-04-10"
-  },
-  {
-    id: 4,
-    oblast: Region.KHARKIVSKA,
-    typeOfInfrastructure: "Міст",
-    dateOfEvent: "2022-04-07",
-    sourceName: "The New York Times",
-    sourceDate: "2022-04-08",
-    sourceLink: "https://www.nytimes.com/example",
-    additionalSources: "",
-    extentOfDamage: "Пошкоджено опорні конструкції",
-    internalFilterDate: "2022-04-12"
-  },
-  {
-    id: 5,
-    oblast: Region.DONETSKA,
-    typeOfInfrastructure: "Електростанція",
-    dateOfEvent: "2022-05-10",
-    sourceName: "DW",
-    sourceDate: "2022-05-11",
-    sourceLink: "https://www.dw.com/example",
-    additionalSources: "Reuters",
-    extentOfDamage: "Значні пошкодження обладнання",
-    internalFilterDate: "2022-05-15"
-  },
-  {
-    id: 6,
-    oblast: Region.DONETSKA,
-    typeOfInfrastructure: "Житловий комплекс",
-    dateOfEvent: "2022-05-12",
-    sourceName: "BBC",
-    sourceDate: "2022-05-13",
-    sourceLink: "https://www.bbc.com/example",
-    additionalSources: "",
-    extentOfDamage: "Зруйновано 3 будинки із 5",
-    internalFilterDate: "2022-05-20"
-  },
-  {
-    id: 7,
-    oblast: Region.ODESSKA,
-    typeOfInfrastructure: "Порт",
-    dateOfEvent: "2022-06-20",
-    sourceName: "The Guardian",
-    sourceDate: "2022-06-21",
-    sourceLink: "https://www.theguardian.com/example",
-    additionalSources: "CNN",
-    extentOfDamage: "Пошкоджено складські приміщення",
-    internalFilterDate: "2022-06-25"
-  },
-  {
-    id: 8,
-    oblast: Region.MYKOLAIVSKA,
-    typeOfInfrastructure: "Адміністративна будівля",
-    dateOfEvent: "2022-07-15",
-    sourceName: "Reuters",
-    sourceDate: "2022-07-16",
-    sourceLink: "https://www.reuters.com/example2",
-    additionalSources: "",
-    extentOfDamage: "Часткове руйнування",
-    internalFilterDate: "2022-07-20"
-  },
-  {
-    id: 9,
-    oblast: Region.ZAPORIZKA,
-    typeOfInfrastructure: "Водопостачання",
-    dateOfEvent: "2022-08-10",
-    sourceName: "Associated Press",
-    sourceDate: "2022-08-12",
-    sourceLink: "https://apnews.com/example2",
-    additionalSources: "Укрінформ",
-    extentOfDamage: "Пошкоджено насосну станцію",
-    internalFilterDate: "2022-08-15"
-  },
-  {
-    id: 10,
-    oblast: Region.SUMSKA,
-    typeOfInfrastructure: "Міст",
-    dateOfEvent: "2022-09-05",
-    sourceName: "CNN",
-    sourceDate: "2022-09-06",
-    sourceLink: "https://www.cnn.com/example",
-    additionalSources: "",
-    extentOfDamage: "Значні структурні пошкодження",
-    internalFilterDate: "2022-09-10"
-  }
-];
-
-const getPlacesByRegion = (regionId: string): Place[] => {
-  const regionMap: Record<string, Region> = {
-    'kyivska': Region.KYIVSKA,
-    'kharkivska': Region.KHARKIVSKA,
-    'odesska': Region.ODESSKA,
-    'dnipropetrovska': Region.DNIPROPETROVSKA,
-    'zakarpatska': Region.ZAKARPATSKA,
-    'lvivska': Region.LVIVSKA,
-    'chernihivska': Region.CHERNIHIVSKA,
-    'zaporizka': Region.ZAPORIZKA,
-    'donetska': Region.DONETSKA,
-    'luhanska': Region.LUHANSKA,
-    'ivano-frankivska': Region.IVANO_FRANKIVSKA,
-    'ternopilska': Region.TERNOPILSKA,
-    'vinnytska': Region.VINNYTSKA,
-    'mykolaivska': Region.MYKOLAIVSKA,
-    'sumska': Region.SUMSKA,
-    'chernivetska': Region.CHERNIVETSKA,
-    'khmelnytska': Region.KHMELNYTSKA,
-    'cherkaska': Region.CHERKASKA,
-    'kirovohradska': Region.KIROVOHRADSKA,
-    'khersonska': Region.KHERSONSKA,
-    'poltavska': Region.POLTAVSKA,
-    'rivnenska': Region.RIVNENSKA,
-    'volynska': Region.VOLYNSKA,
-    'zhytomyrska': Region.ZHYTOMYRSKA,
-    'crimea': Region.CRIMEA
-  };
-
-  const region = regionMap[regionId];
-  return region ? mockPlaces.filter(place => place.oblast === region) : [];
-};
+import { RegionSummary, PlaceData, getRegionPlaces } from '@/utils/api';
 
 declare global {
   interface Window {
@@ -225,11 +28,12 @@ interface IconDefaultPrototype {
 
 export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps) {
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [selectedRegionId, setSelectedRegionId] = useState<string | null>(null); // Used to fetch places data
+  const [selectedRegionId, setSelectedRegionId] = useState<string | null>(null);
   const [selectedDamage, setSelectedDamage] = useState<number | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
-  const [regionPlaces, setRegionPlaces] = useState<Place[]>([]);
+  const [regionPlaces, setRegionPlaces] = useState<PlaceData[]>([]);
+  const [isLoadingPlaces, setIsLoadingPlaces] = useState<boolean>(false);
+  const [placesError, setPlacesError] = useState<string | null>(null);
   
   const { minDamage, maxDamage } = useMemo(() => {
     if (!damageData || damageData.length === 0) {
@@ -422,6 +226,52 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
     return new Intl.NumberFormat('uk-UA').format(num);
   };
 
+  useEffect(() => {
+    const fetchPlacesData = async () => {
+      if (!selectedRegionId) return;
+      
+      setIsLoadingPlaces(true);
+      setPlacesError(null);
+      
+      try {
+        const placesData = await getRegionPlaces(selectedRegionId);
+        setRegionPlaces(placesData);
+      } catch (error) {
+        console.error(`Error fetching places for region ${selectedRegionId}:`, error);
+        setPlacesError('Failed to load places data');
+        setRegionPlaces([]);
+      } finally {
+        setIsLoadingPlaces(false);
+      }
+    };
+    
+    if (selectedRegionId) {
+      fetchPlacesData();
+    }
+  }, [selectedRegionId]);
+
+  // Define regionStyle first
+  const regionStyle = useCallback((feature?: GeoJSON.Feature) => {
+    const regionName = getRegionName(feature);
+    const damage = getRegionDamage(feature);
+    const isSelected = regionName === selectedRegion;
+    const fillColor = getDamageColor(damage);
+    
+    return {
+      fillColor: isSelected ? '#ff7800' : fillColor,
+      weight: isSelected ? 3 : 2,
+      opacity: 1,
+      color: isSelected ? '#333' : '#666',
+      dashArray: isSelected ? '' : '3',
+      fillOpacity: isSelected ? 0.7 : 0.65
+    };
+  }, [getRegionName, selectedRegion, getDamageColor, getRegionDamage]);
+
+  // Use regionStyleRef to avoid the circular dependency
+  const regionStyleRef = useRef(regionStyle);
+  useEffect(() => {
+    regionStyleRef.current = regionStyle;
+  }, [regionStyle]);
 
   const onEachFeature = useCallback((feature: GeoJSON.Feature, layer: L.Layer) => {
     const regionName = getRegionName(feature);
@@ -430,9 +280,9 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
     if (regionName) {
       const popupContent = damage !== null 
         ? `<div class="font-bold text-lg">${regionName}</div>
-           <div class="text-md">Сума збитків: ${formatNumber(damage)} грн</div>`
+           <div class="text-md">Кількість пошкоджених об&apos;єктів: ${damage}</div>`
         : `<div class="font-bold text-lg">${regionName}</div>
-           <div class="text-md">Немає даних про збитки</div>`;
+           <div class="text-md">Немає даних про пошкодження</div>`;
       
       layer.bindPopup(popupContent);
       
@@ -469,7 +319,8 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
               fillOpacity: 0.7
             });
           } else {
-            geoJson.setStyle(regionStyle(path.feature));
+            // Use the ref to avoid circular dependency
+            geoJson.setStyle(regionStyleRef.current(path.feature));
           }
         }
       },
@@ -484,9 +335,6 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
             setSelectedRegion(regionName);
             setSelectedDamage(damage);
             setSelectedRegionId(regionId);
-            
-            const places = getPlacesByRegion(regionId);
-            setRegionPlaces(places);
             setSidebarOpen(true);
             
             const layer = e.target as L.Path;
@@ -501,22 +349,6 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
       }
     });
   }, [getRegionName, geoJsonData, selectedRegion, getRegionDamage, getRegionId]);
-  
-  const regionStyle = useCallback((feature?: GeoJSON.Feature) => {
-    const regionName = getRegionName(feature);
-    const damage = getRegionDamage(feature);
-    const isSelected = regionName === selectedRegion;
-    const fillColor = getDamageColor(damage);
-    
-    return {
-      fillColor: isSelected ? '#ff7800' : fillColor,
-      weight: isSelected ? 3 : 2,
-      opacity: 1,
-      color: isSelected ? '#333' : '#666',
-      dashArray: isSelected ? '' : '3',
-      fillOpacity: isSelected ? 0.7 : 0.65
-    };
-  }, [getRegionName, selectedRegion, getDamageColor, getRegionDamage]);
 
   const geoJsonLayer = useMemo(() => {
     if (!geoJsonData) return null;
@@ -558,17 +390,17 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
   const MapLegend = () => {
     return (
       <div className="absolute bottom-4 right-4 z-[1000] bg-white p-3 rounded-md shadow-md border border-gray-200">
-        <h3 className="text-sm font-bold mb-2 text-gray-800">Сума збитків</h3>
+        <h3 className="text-sm font-bold mb-2 text-gray-800">Кількість пошкоджень</h3>
         <div className="w-80 h-5 bg-gradient-to-r from-[#3182CE] via-[#5541A2] to-[#660029] rounded"></div>
         <div className="flex justify-between mt-1 text-xs text-gray-600">
-          <div>{formatNumber(minDamage)} грн</div>
-          <div>{formatNumber(maxDamage)} грн</div>
+          <div>{minDamage}</div>
+          <div>{maxDamage}</div>
         </div>
         {selectedRegion && (
           <div className="mt-2 pt-2 border-t border-gray-200">
             <p className="text-xs font-semibold">{selectedRegion}</p>
             {selectedDamage !== null ? (
-              <p className="text-xs">{formatNumber(selectedDamage)} грн</p>
+              <p className="text-xs">Кількість пошкоджень: {selectedDamage}</p>
             ) : (
               <p className="text-xs">Немає даних</p>
             )}
@@ -585,6 +417,51 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
       month: '2-digit',
       year: 'numeric'
     });
+  };
+
+  const getExtentOfDamage = (extentOfDamage: string): string => {
+    const damageMap: Record<string, string> = {
+      'Partially damaged': 'Частково пошкоджено',
+      'Destroyed': 'Повністю зруйновано'
+    };
+    
+    return damageMap[extentOfDamage] || extentOfDamage;
+  };
+
+  const getInfrastructureLabel = (type: string): string => {
+    const typeMap: Record<string, string> = {
+      'WAREHOUSE': 'Склад',
+      'AIRCRAFT_REPAIR_PLANT': 'Авіаремонтний завод',
+      'BRIDGE': 'Міст',
+      'OIL_DEPOT': 'Нафтобаза',
+      'GOVERNMENT_FACILITIES': 'Державні установи',
+      'FUEL_DEPOT': 'Паливний склад',
+      'EDUCATION_FACILITY': 'Освітній заклад (школа тощо)',
+      'RELIGIOUS_FACILITIES': 'Релігійні споруди',
+      'AIRPORT': 'Аеропорт',
+      'HEALTH_FACILITY': 'Медичний заклад (лікарня, клініка)',
+      'INDUSTRIAL_BUSINESS_ENTERPRISE': 'Промислові/Бізнес об&apos;єкти',
+      'TELECOMMUNICATIONS': 'Телекомунікації',
+      'CHEMICAL_STORAGE_UNIT': 'Сховище хімічних речовин',
+      'ELECTRICITY_SUPPLY_SYSTEM': 'Система електропостачання',
+      'NUCLEAR_UNIT': 'Ядерний об&apos;єкт',
+      'CULTURAL_FACILITIES': 'Культурні об&apos;єкти (музей, театр тощо)',
+      'RAILWAY': 'Залізниця',
+      'GAS_SUPPLY_SYSTEM': 'Система газопостачання',
+      'WATER_SUPPLY_SYSTEM': 'Система водопостачання',
+      'POWER_PLANT': 'Електростанція',
+      'HARBOR': 'Порт',
+      'ROAD_HIGHWAY': 'Дорога / Автомагістраль',
+      'AGRICULTURAL_FACILITIES': 'Сільськогосподарські об&apos;єкти',
+      'HEATING_AND_WATER_FACILITY': 'Об&apos;єкт тепло- та водопостачання',
+      'RESIDENTIAL': 'Житлова будівля',
+      'COMMERCIAL': 'Комерційна будівля',
+      'INDUSTRIAL': 'Промисловий об&apos;єкт',
+      'INFRASTRUCTURE': 'Інфраструктура',
+      'OTHER': 'Інше'
+    };
+    
+    return typeMap[type] || type;
   };
 
   const Sidebar = () => {
@@ -607,25 +484,46 @@ export default function UkraineMap({ geoJsonData, damageData }: UkraineMapProps)
         <div className="p-4">
           {selectedDamage !== null && (
             <div className="mb-4 p-3 bg-gray-100 rounded-md">
-              <p className="text-sm">Загальна сума збитків:</p>
-              <p className="text-lg font-bold">{formatNumber(selectedDamage)} грн</p>
+              <p className="text-sm">Кількість пошкоджених об&apos;єктів:</p>
+              <p className="text-lg font-bold">{selectedDamage}</p>
             </div>
           )}
           
           <h3 className="text-lg font-semibold mb-3">Пошкоджені об&apos;єкти</h3>
           
-          {regionPlaces.length === 0 ? (
+          {isLoadingPlaces ? (
+            <div className="flex justify-center p-4">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+            </div>
+          ) : placesError ? (
+            <div className="p-3 bg-red-50 text-red-500 rounded-md">
+              <p>{placesError}</p>
+            </div>
+          ) : regionPlaces.length === 0 ? (
             <p className="text-gray-500 italic">Немає даних про пошкоджені об&apos;єкти</p>
           ) : (
             <div className="space-y-4">
               {regionPlaces.map(place => (
                 <div key={place.id} className="border border-gray-200 rounded-md p-3 hover:bg-gray-50">
                   <div className="flex justify-between">
-                    <h4 className="font-medium">{place.typeOfInfrastructure}</h4>
+                    <h4 className="font-medium">{getInfrastructureLabel(place.typeOfInfrastructure)}</h4>
                     <span className="text-sm text-gray-500">{formatDate(place.dateOfEvent)}</span>
                   </div>
-                  <p className="text-sm mt-1 mb-2">{place.extentOfDamage}</p>
-                  <div className="text-xs text-gray-500">
+                  <div className="mt-2">
+                    <span className={`px-2 py-1 text-xs rounded-full ${
+                      place.extentOfDamage === 'Destroyed' 
+                        ? 'bg-red-100 text-red-800' 
+                        : place.extentOfDamage === 'Partially damaged'
+                          ? 'bg-yellow-100 text-yellow-800'
+                          : 'bg-gray-100 text-gray-800'
+                    }`}>
+                      {getExtentOfDamage(place.extentOfDamage)}
+                    </span>
+                  </div>
+                  {place.amount > 0 && (
+                    <p className="text-sm font-semibold mt-2">Збитки: {formatNumber(place.amount)} грн</p>
+                  )}
+                  <div className="text-xs text-gray-500 mt-2">
                     <p>Джерело: {place.sourceName}</p>
                     {place.sourceLink && (
                       <a 
