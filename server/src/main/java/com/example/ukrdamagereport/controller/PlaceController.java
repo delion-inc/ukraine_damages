@@ -2,8 +2,8 @@ package com.example.ukrdamagereport.controller;
 
 import com.example.ukrdamagereport.dto.region.AllPlaceDto;
 import com.example.ukrdamagereport.dto.region.PlaceDto;
-import com.example.ukrdamagereport.entity.Region;
 import com.example.ukrdamagereport.service.PlaceService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
