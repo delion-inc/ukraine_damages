@@ -4,6 +4,7 @@ import com.example.ukrdamagereport.dto.report.DamageReportCreateDto;
 import com.example.ukrdamagereport.dto.report.DamageReportResponseDto;
 import com.example.ukrdamagereport.entity.InfrastructureType;
 import com.example.ukrdamagereport.service.DamageReportService;
+import com.example.ukrdamagereport.util.FileStorageUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class DamageReportController {
 
     private final DamageReportService damageReportService;
+    private final FileStorageUtil fileStorageUtil;
 
     @SneakyThrows
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -31,10 +33,13 @@ public class DamageReportController {
             @RequestParam(value = "address", required = false) String address,
             @RequestParam(value = "additionalInfo", required = false) String additionalInfo
     ) {
+        String photoBeforePath = fileStorageUtil.saveFile(photoBefore);
+        String photoAfterPath = fileStorageUtil.saveFile(photoAfter);
+
         DamageReportCreateDto reportDto = new DamageReportCreateDto();
         reportDto.setDescription(description);
-        reportDto.setPhotoBefore(photoBefore != null ? photoBefore.getBytes() : null);
-        reportDto.setPhotoAfter(photoAfter != null ? photoAfter.getBytes() : null);
+        reportDto.setPhotoBefore(photoBeforePath);
+        reportDto.setPhotoAfter(photoAfterPath);
         reportDto.setInfrastructureType(InfrastructureType.valueOf(infrastructureType));
         reportDto.setAreaSizeSqM(areaSizeSqM);
         reportDto.setFloors(floors);
