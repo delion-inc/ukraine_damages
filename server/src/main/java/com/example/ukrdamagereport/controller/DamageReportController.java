@@ -6,6 +6,7 @@ import com.example.ukrdamagereport.entity.InfrastructureType;
 import com.example.ukrdamagereport.service.DamageReportService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +18,7 @@ public class DamageReportController {
 
     private final DamageReportService damageReportService;
 
+    @SneakyThrows
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public DamageReportResponseDto createDamageReport(
             @RequestParam(value = "photoBefore", required = false) MultipartFile photoBefore,
@@ -31,8 +33,8 @@ public class DamageReportController {
     ) {
         DamageReportCreateDto reportDto = new DamageReportCreateDto();
         reportDto.setDescription(description);
-        reportDto.setPhotoBefore(photoBefore != null ? photoBefore.getOriginalFilename() : null);
-        reportDto.setPhotoAfter(photoAfter != null ? photoAfter.getOriginalFilename() : null);
+        reportDto.setPhotoBefore(photoBefore != null ? photoBefore.getBytes() : null);
+        reportDto.setPhotoAfter(photoAfter != null ? photoAfter.getBytes() : null);
         reportDto.setInfrastructureType(InfrastructureType.valueOf(infrastructureType));
         reportDto.setAreaSizeSqM(areaSizeSqM);
         reportDto.setFloors(floors);

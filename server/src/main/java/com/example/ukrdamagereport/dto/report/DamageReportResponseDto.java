@@ -7,8 +7,8 @@ import lombok.Data;
 public class DamageReportResponseDto {
     private Long id;
     private String description;
-    private String photoBefore;
-    private String photoAfter;
+    private byte[] photoBefore;
+    private byte[] photoAfter;
     private InfrastructureType infrastructureType;
     private Double areaSizeSqM;
     private Integer floors;

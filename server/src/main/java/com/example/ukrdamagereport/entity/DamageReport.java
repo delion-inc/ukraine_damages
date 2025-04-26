@@ -22,11 +22,11 @@ public class DamageReport {
 
     @Lob
     @Column(name = "photo_before")
-    private String photoBefore;
+    private byte[] photoBefore;
 
     @Lob
     @Column(name = "photo_after")
-    private String photoAfter;
+    private byte[] photoAfter;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "infrastructure_type", nullable = false)
