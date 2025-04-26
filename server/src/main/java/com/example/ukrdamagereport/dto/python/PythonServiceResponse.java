@@ -1,4 +1,4 @@
-package com.example.ukrdamagereport.dto.report;
+package com.example.ukrdamagereport.dto.python;
 
 import lombok.Data;
 
