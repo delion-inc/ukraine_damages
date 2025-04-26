@@ -8,7 +8,9 @@ import com.example.ukrdamagereport.util.FileStorageUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.apache.coyote.Response;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,5 +50,11 @@ public class DamageReportController {
         reportDto.setAdditionalInfo(additionalInfo);
         
         return damageReportService.createPlace(reportDto);
+    }
+
+    @DeleteMapping("/clear")
+    public ResponseEntity<?> deleteAllDamageReports() {
+        damageReportService.deleteAllImages();
+        return ResponseEntity.noContent().build();
     }
 }

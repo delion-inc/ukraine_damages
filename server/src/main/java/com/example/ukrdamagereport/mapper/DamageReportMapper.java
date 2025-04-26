@@ -24,7 +24,6 @@ public class DamageReportMapper {
                 .floors(dto.getFloors())
                 .constructionYear(dto.getConstructionYear())
                 .address(dto.getAddress())
-                .additionalInfo(dto.getAdditionalInfo())
                 .build();
     }
     
@@ -43,8 +42,8 @@ public class DamageReportMapper {
         dto.setFloors(entity.getFloors());
         dto.setConstructionYear(entity.getConstructionYear());
         dto.setAddress(entity.getAddress());
-        dto.setAdditionalInfo(entity.getAdditionalInfo());
-        
+        dto.setAmount(entity.getAmount());
+        dto.setAdditionDescription(entity.getAdditionDescription());
         return dto;
     }
     
@@ -76,9 +75,6 @@ public class DamageReportMapper {
         }
         if (dto.getAddress() != null) {
             entity.setAddress(dto.getAddress());
-        }
-        if (dto.getAdditionalInfo() != null) {
-            entity.setAdditionalInfo(dto.getAdditionalInfo());
         }
     }
 }

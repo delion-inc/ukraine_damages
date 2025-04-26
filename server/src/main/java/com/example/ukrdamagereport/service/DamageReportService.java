@@ -8,4 +8,6 @@ import jakarta.validation.Valid;
 public interface DamageReportService {
 
     DamageReportResponseDto createPlace(@Valid DamageReportCreateDto placeDto);
+
+    void deleteAllImages();
 }

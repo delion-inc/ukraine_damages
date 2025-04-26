@@ -14,5 +14,7 @@ public class DamageReportResponseDto {
     private Integer floors;
     private Integer constructionYear;
     private String address;
-    private String additionalInfo;
+    private Double amount;
+    private String additionDescription;
+
 }
