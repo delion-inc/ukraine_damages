@@ -30,17 +30,4 @@ public class FileStorageUtil {
 
         return "/images/" + filename;
     }
-
-    public void deleteFile(String filePath) {
-        if (filePath == null) return;
-
-        try {
-            String filename = filePath.substring(filePath.lastIndexOf('/') + 1);
-            Path fullPath = Paths.get(uploadPath, filename);
-            Files.deleteIfExists(fullPath);
-        } catch (IOException e) {
-            // Log error but don't throw
-            System.err.println("Error deleting file: " + e.getMessage());
-        }
-    }
-} 
+}
