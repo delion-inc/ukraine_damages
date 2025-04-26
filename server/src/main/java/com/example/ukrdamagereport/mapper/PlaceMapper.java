@@ -1,9 +1,14 @@
 package com.example.ukrdamagereport.mapper;
 
+import com.example.ukrdamagereport.dto.PageResponse;
 import com.example.ukrdamagereport.dto.region.AllPlaceDto;
 import com.example.ukrdamagereport.dto.region.PlaceDto;
 import com.example.ukrdamagereport.entity.Place;
 import com.example.ukrdamagereport.entity.Region;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class PlaceMapper {
     
@@ -29,6 +34,19 @@ public class PlaceMapper {
             place.getExtentOfDamage(),
             place.getInternalFilterDate(),
             place.getAmount()
+        );
+    }
+
+    public static PageResponse<PlaceDto> mapToPageResponse(Page<Place> placePage) {
+        List<PlaceDto> content = placePage.getContent().stream()
+                .map(PlaceMapper::mapToPlaceDto)
+                .collect(Collectors.toList());
+
+        return new PageResponse<>(
+                content,
+                (int) placePage.getTotalElements(),
+                placePage.getTotalPages(),
+                placePage.getNumber()
         );
     }
 }

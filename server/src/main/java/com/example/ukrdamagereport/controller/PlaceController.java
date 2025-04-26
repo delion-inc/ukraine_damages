@@ -1,5 +1,6 @@
 package com.example.ukrdamagereport.controller;
 
+import com.example.ukrdamagereport.dto.PageResponse;
 import com.example.ukrdamagereport.dto.region.AllPlaceDto;
 import com.example.ukrdamagereport.dto.region.PlaceDto;
 import com.example.ukrdamagereport.service.PlaceService;
@@ -23,7 +24,10 @@ public class PlaceController {
     }
 
     @GetMapping("/{regionId}")
-    public ResponseEntity<List<PlaceDto>> getAllPlaceByRegion(@PathVariable String regionId) {
-        return ResponseEntity.ok(placeService.getPlacesByRegion(regionId));
+    public ResponseEntity<PageResponse<PlaceDto>> getAllPlaceByRegion(
+            @PathVariable String regionId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(placeService.getPlacesByRegion(regionId, page, size));
     }
 }
