@@ -1,4 +1,4 @@
-package com.example.ukrdamagereport.Config;
+package com.example.ukrdamagereport.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,6 +1,6 @@
 package com.example.ukrdamagereport.service.impl;
 
-import com.example.ukrdamagereport.Config.SerperConfig;
+import com.example.ukrdamagereport.config.SerperConfig;
 import com.example.ukrdamagereport.dto.serper.res.SerperResponse;
 import com.example.ukrdamagereport.exception.SearchException;
 import com.example.ukrdamagereport.service.SerperApiService;
