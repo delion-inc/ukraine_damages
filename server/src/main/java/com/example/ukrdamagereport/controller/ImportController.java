@@ -15,13 +15,7 @@ public class ImportController {
     private final CsvImportService csvImportService;
 
     @PostMapping("/import")
-    public ResponseEntity<String> importCsvData() {
-        try {
-            csvImportService.importCsvData();
-            return ResponseEntity.ok("CSV data imported successfully");
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError()
-                    .body("Failed to import CSV data: " + e.getMessage());
-        }
+    public ResponseEntity<?> importCsvData() {
+        return ResponseEntity.ok(csvImportService.importCsvData());
     }
 } 

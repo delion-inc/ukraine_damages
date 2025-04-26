@@ -29,7 +29,7 @@ public class CsvImportServiceImpl implements CsvImportService {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("M/d/yyyy");
 
     @Transactional
-    public void importCsvData() {
+    public String importCsvData() {
         String csvFile = "records.csv";
         List<Place> places = new ArrayList<>();
         int totalLines = 0;
@@ -63,6 +63,7 @@ public class CsvImportServiceImpl implements CsvImportService {
         } catch (IOException | CsvValidationException e) {
             throw new RuntimeException("Failed to import CSV data", e);
         }
+        return "CSV uploaded successfully!";
     }
 
     private Place mapCsvLineToPlace(String[] line) {

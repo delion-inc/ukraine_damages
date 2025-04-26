@@ -5,11 +5,15 @@ import com.example.ukrdamagereport.dto.region.AllPlaceDto;
 import com.example.ukrdamagereport.dto.region.PlaceDto;
 import com.example.ukrdamagereport.entity.Place;
 import com.example.ukrdamagereport.entity.Region;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
+@RequiredArgsConstructor
 public class PlaceMapper {
     
     public static AllPlaceDto mapToDto(Region region, Long totalDamage) {
