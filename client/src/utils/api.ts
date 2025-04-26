@@ -141,19 +141,17 @@ export interface RegionSummary {
  * Get summary of damage reports by region
  */
 export async function getRegionsSummary(): Promise<RegionSummary[]> {
-  // TODO: When the real API is ready, use this code
-  // const response = await fetch('/api/regions/summary');
-  // if (!response.ok) {
-  //   throw new Error(`Failed to fetch regions summary: ${response.status}`);
-  // }
-  // return await response.json();
-  
-  // For now, return mock data with a simulated delay
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(MOCK_REGIONS_SUMMARY);
-    }, 800); // Simulate network delay
-  });
+  try {
+    const response = await fetch('http://93.127.131.80:8080/api/v1/places');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch regions summary: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching regions data:', error);
+    // Fallback to mock data if the API call fails
+    return MOCK_REGIONS_SUMMARY;
+  }
 }
 
 /**
