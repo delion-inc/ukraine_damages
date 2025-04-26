@@ -1,5 +1,13 @@
 version: '3.8'
 services:
+
+  certbot:
+    container_name: certbot
+    image: certbot/certbot
+    volumes:
+      - /certbot:/etc/letsencrypt
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
   frontend:
     container_name: frontend
     build:
@@ -39,11 +47,7 @@ services:
       - "8000:8000"
     environment:
       - PYTHONUNBUFFERED=1
-    volumes:
-      - /ai_service:/app
-    command: /py/bin/uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-    depends_on:
-      - backend
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
   db:
     image: mysql:8.0
