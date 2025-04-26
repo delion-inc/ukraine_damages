@@ -6,18 +6,21 @@
 
     <changeSet id="create-place-table" author="Roman">
         <createTable tableName="place">
-            <column name="id" type="INT">
-                <constraints primaryKey="true"/>
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="oblast" type="VARCHAR(255)"/>
+            <column name="oblast" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="type_of_infrastructure" type="VARCHAR(255)"/>
             <column name="date_of_event" type="DATE"/>
             <column name="source_name" type="VARCHAR(255)"/>
             <column name="source_date" type="DATE"/>
             <column name="source_link" type="TEXT"/>
             <column name="additional_sources" type="TEXT"/>
-            <column name="extent_of_damage" type="TEXT"/>
+            <column name="extent_of_damage" type="VARCHAR(255)"/>
             <column name="internal_filter_date" type="DATE"/>
+            <column name="amount" type="decimal(20,2)"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
