@@ -1,9 +1,14 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+
+type Params = { regionId: string };
 
 /**
  * GET handler for proxying requests to fetch places for a specific region with pagination
  */
-export async function GET(request, { params }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Params }
+) {
   try {
     const { regionId } = params;
     const searchParams = request.nextUrl.searchParams;
@@ -39,7 +44,6 @@ export async function GET(request, { params }) {
     }
 
     const data = await response.json();
-    
     
     const headers = new Headers({
       'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
