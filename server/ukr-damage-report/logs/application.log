@@ -336,3 +336,6 @@ java.sql.SQLSyntaxErrorException: Unknown column 'RESERVED' in 'WHERE'
 2025-04-26 14:12:52.081 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [rid:] [uid:] [action:] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
 2025-04-26 14:12:52.489 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer [rid:] [uid:] [action:] - Tomcat started on port 8080 (http) with context path '/'
 2025-04-26 14:12:52.495 [main] INFO  c.e.u.UkrDamageReportApplication [rid:] [uid:] [action:] - Started UkrDamageReportApplication in 5.125 seconds (process running for 5.697)
+2025-04-26 14:18:08.315 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean [rid:] [uid:] [action:] - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-04-26 14:18:08.317 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Shutdown initiated...
+2025-04-26 14:18:08.322 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource [rid:] [uid:] [action:] - HikariPool-1 - Shutdown completed.
