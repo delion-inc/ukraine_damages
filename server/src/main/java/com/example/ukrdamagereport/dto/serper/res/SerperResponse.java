@@ -1,25 +1,18 @@
 package com.example.ukrdamagereport.dto.serper.res;
 
-
 import lombok.Data;
-import java.util.List;
 
 @Data
 public class SerperResponse {
-    private SearchParameters searchParameters;
-    private List<OrganicResult> organic;
-    private List<String> relatedSearches;
+    private ImageResult image;
 
     @Data
-    public static class SearchParameters {
-        private String q;
-    }
-
-    @Data
-    public static class OrganicResult {
+    public static class ImageResult {
         private String title;
         private String link;
-        private String snippet;
-        private int position;
+        private String imageUrl;
+        private String originalImageUrl;
+        private String source;
+        private String domain;
     }
 }

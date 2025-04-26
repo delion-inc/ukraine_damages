@@ -34,4 +34,7 @@ spring:
 serper:
   api:
     key: "393e51974c0cd1a95a5dd3b30088a757dccc8901"
-    url: "https://google.serper.dev/search"
+    url: "https://google.serper.dev/images"
+    location: "Ukraine"
+    gl: "ua"
+    hl: "uk"

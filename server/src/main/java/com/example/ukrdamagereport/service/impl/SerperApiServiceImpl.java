@@ -1,77 +1,79 @@
 package com.example.ukrdamagereport.service.impl;
 
 import com.example.ukrdamagereport.Config.SerperConfig;
-import com.example.ukrdamagereport.dto.serper.req.SerperRequest;
 import com.example.ukrdamagereport.dto.serper.res.SerperResponse;
 import com.example.ukrdamagereport.service.SerperApiService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
+import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class SerperApiServiceImpl implements SerperApiService {
 
-    private static final String DESTRUCTION_KEYWORD = "destruction";
-    private final RestTemplate restTemplate;
     private final SerperConfig serperConfig;
+    private final ObjectMapper objectMapper;
 
     @Override
     public SerperResponse search(String query) {
-        log.info("Starting search query: {}", query);
+        log.info("Starting image search query: {}", query);
         validateQuery(query);
 
         try {
             String enhancedQuery = enhanceQueryWithDestruction(query);
-            HttpEntity<SerperRequest> entity = createRequestEntity(enhancedQuery);
+            log.debug("Making request with query: {}", enhancedQuery);
 
-            log.debug("Sending request to Serper API with enhanced query: {}", enhancedQuery);
-            SerperResponse response = restTemplate.postForObject(
-                    serperConfig.getApiUrl(),
-                    entity,
-                    SerperResponse.class
-            );
+            HttpResponse<String> response = Unirest.get(serperConfig.getApiUrl())
+                    .header("X-API-KEY", serperConfig.getApiKey())
+                    .queryString("q", enhancedQuery)
+                    .queryString("location", serperConfig.getLocation())
+                    .queryString("gl", serperConfig.getGl())
+                    .queryString("hl", serperConfig.getHl())
+                    .asString();
 
-            if (response == null) {
-                throw new RuntimeException("Received empty response from Serper API");
+            if (response.getStatus() != 200) {
+                log.error("API error response: {}", response.getBody());
+                throw new RuntimeException("API request failed with status: " + response.getStatus());
             }
 
-            log.info("Search query completed successfully");
-            return response;
+            JsonNode rootNode = objectMapper.readTree(response.getBody());
+            JsonNode imagesNode = rootNode.get("images");
 
-        } catch (RestClientException e) {
-            log.error("Error connecting to Serper API: {}", e.getMessage());
+            SerperResponse result = new SerperResponse();
+
+            if (imagesNode != null && imagesNode.isArray() && imagesNode.size() > 0) {
+                JsonNode firstImage = imagesNode.get(0);
+                SerperResponse.ImageResult imageResult = objectMapper.treeToValue(
+                        firstImage,
+                        SerperResponse.ImageResult.class
+                );
+                result.setImage(imageResult);
+                log.info("Successfully found image for query: {}", query);
+            } else {
+                log.warn("No images found for query: {}", query);
+            }
+
+            return result;
+
+        } catch (UnirestException e) {
+            log.error("Error making API request: {}", e.getMessage());
             throw new RuntimeException("Failed to connect to Serper API", e);
+        } catch (JsonProcessingException e) {
+            log.error("Error parsing API response: {}", e.getMessage());
+            throw new RuntimeException("Failed to parse API response", e);
         } catch (Exception e) {
-            log.error("Unexpected error during search execution: {}", e.getMessage());
+            log.error("Unexpected error during search: {}", e.getMessage());
             throw new RuntimeException("Error performing search", e);
         }
     }
 
-    /**
-     * Enhances the search query by adding destruction keyword
-     * @param originalQuery original user query
-     * @return enhanced query with destruction keyword
-     */
-    private String enhanceQueryWithDestruction(String originalQuery) {
-        String trimmedQuery = originalQuery.trim();
-        if (trimmedQuery.toLowerCase().contains(DESTRUCTION_KEYWORD)) {
-            return trimmedQuery;
-        }
-        return String.format("%s %s", trimmedQuery, DESTRUCTION_KEYWORD);
-    }
-
-    /**
-     * Validates the search query
-     * @param query search query to validate
-     * @throws IllegalArgumentException if query is null or empty
-     */
     private void validateQuery(String query) {
         if (query == null || query.trim().isEmpty()) {
             log.error("Received empty search query");
@@ -79,34 +81,11 @@ public class SerperApiServiceImpl implements SerperApiService {
         }
     }
 
-    /**
-     * Creates HTTP entity with headers and request body
-     * @param query search query
-     * @return prepared HTTP entity
-     */
-    private HttpEntity<SerperRequest> createRequestEntity(String query) {
-        return new HttpEntity<>(createRequest(query), createHeaders());
-    }
-
-    /**
-     * Creates HTTP headers with API key and content type
-     * @return configured HTTP headers
-     */
-    private HttpHeaders createHeaders() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("X-API-KEY", serperConfig.getApiKey());
-        return headers;
-    }
-
-    /**
-     * Creates search request object
-     * @param query search query
-     * @return prepared request object
-     */
-    private SerperRequest createRequest(String query) {
-        SerperRequest request = new SerperRequest();
-        request.setQ(query);
-        return request;
+    private String enhanceQueryWithDestruction(String originalQuery) {
+        String trimmedQuery = originalQuery.trim();
+        if (trimmedQuery.toLowerCase().contains("destruction")) {
+            return trimmedQuery;
+        }
+        return String.format("%s destruction after attack", trimmedQuery);
     }
 }
