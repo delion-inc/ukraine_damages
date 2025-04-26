@@ -32,14 +32,15 @@ import java.nio.file.Paths;
 @RequiredArgsConstructor
 public class DamageReportServiceImpl implements DamageReportService {
 
-    private static final String PYTHON_URL = "http://93.127.131.80:8000/response";
-
     private final DamageReportRepository damageReportRepository;
     private final DamageReportMapper damageReportMapper;
     private final RestTemplate restTemplate;
 
     @Value("${app.upload-dir}")
     private String uploadDir;
+
+    @Value("${app.python-url}")
+    private String pythonUrl;
 
     @Override
     @Transactional
@@ -102,7 +103,7 @@ public class DamageReportServiceImpl implements DamageReportService {
             
             try {
                 ResponseEntity<PythonServiceResponse> response = restTemplate.postForEntity(
-                        PYTHON_URL,
+                        pythonUrl,
                         requestEntity,
                         PythonServiceResponse.class
                 );
