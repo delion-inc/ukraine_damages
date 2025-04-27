@@ -21,6 +21,9 @@ public class FileStorageUtil {
     @Value("${file.upload.path:src/main/resources/static/images}")
     private String uploadPath;
 
+    @Value("${app.domain}")
+    private String domain;
+
     public String saveFile(MultipartFile file) throws IOException {
         if (file == null || file.isEmpty()) {
             return null;
@@ -33,7 +36,7 @@ public class FileStorageUtil {
 
         Files.copy(file.getInputStream(), filePath);
 
-        return "/images/" + filename;
+        return domain + "/images/" + filename;
     }
 
     public String downloadImageFromUrl(String imageUrl) {
@@ -52,7 +55,7 @@ public class FileStorageUtil {
             }
             
             log.info("Successfully downloaded and saved image to: {}", destinationFile);
-            return "/images/" + filename;
+            return domain + "/images/" + filename;
             
         } catch (IOException e) {
             log.error("Failed to download image from URL: {}", imageUrl, e);
