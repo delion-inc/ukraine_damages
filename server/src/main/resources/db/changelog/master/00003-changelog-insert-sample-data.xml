@@ -44,7 +44,7 @@
 
         <insert tableName="damage_report">
             <column name="description" value="Руйнування житлових приміщень"/>
-            <column name="infrastructure_type" value="RESIDENTIAL_BUILDING"/>
+            <column name="infrastructure_type" value="WAREHOUSE"/>
             <column name="area_size_sq_m" value="832.13"/>
             <column name="floors" value="9"/>
             <column name="construction_year" value="1962"/>
@@ -316,7 +316,7 @@
 
         <insert tableName="damage_report">
             <column name="description" value="Руйнування житлового комплексу"/>
-            <column name="infrastructure_type" value="RESIDENTIAL_BUILDING"/>
+            <column name="infrastructure_type" value="RAILWAY"/>
             <column name="area_size_sq_m" value="5678.90"/>
             <column name="floors" value="16"/>
             <column name="construction_year" value="2015"/>
@@ -357,6 +357,8 @@
             <column name="amount" value="2345678.90"/>
         </insert>
         <insert tableName="damage_report">
+
+
             <column name="description" value="Руйнування вантажного терміналу"/>
             <column name="infrastructure_type" value="WAREHOUSE"/>
             <column name="area_size_sq_m" value="6789.12"/>
