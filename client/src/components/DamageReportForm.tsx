@@ -2,6 +2,7 @@
 
 import { useState, FormEvent, ChangeEvent, useEffect } from 'react';
 import Image from 'next/image';
+import AiFeedbackRating from './AiFeedbackRating';
 
 interface DamageReport {
   photoBefore: File | null;
@@ -343,10 +344,10 @@ export default function DamageReportForm() {
   
   if (submitSuccess && response) {
     return (
-      <div className="rounded-lg bg-white p-4 sm:p-6 md:p-8 border border-gray-200 shadow-lg">
-        <div className="flex justify-center mb-4 sm:mb-6">
-          <div className="rounded-full bg-green-100 p-2 sm:p-3">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 sm:h-12 sm:w-12 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 md:p-8">
+        <div className="flex justify-center mb-6">
+          <div className="rounded-full bg-green-100 p-3 w-14 h-14 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
@@ -444,6 +445,16 @@ export default function DamageReportForm() {
               )}
             </div>
           </div>
+        </div>
+        
+        {/* Компонент для оцінки якості AI-розрахунку */}
+        <div className="mb-6 sm:mb-8">
+          <AiFeedbackRating 
+            onRatingSubmit={(rating, comment) => {
+              console.log('Отримана оцінка:', rating, 'Коментар:', comment);
+              // Тут у майбутньому можна додати логіку для відправки відгуку на сервер
+            }} 
+          />
         </div>
         
         <div className="text-gray-700 mb-4 sm:mb-6 text-center text-xs sm:text-sm">
