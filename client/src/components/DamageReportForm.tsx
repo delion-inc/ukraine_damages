@@ -28,6 +28,36 @@ interface SubmissionResponse {
   additionDescription?: string;
 }
 
+// Add an infrastructureType mapping
+const infrastructureTypeLabels: Record<string, string> = {
+  'WAREHOUSE': 'Склад',
+  'AIRCRAFT_REPAIR_PLANT': 'Авіаремонтний завод',
+  'BRIDGE': 'Міст',
+  'OIL_DEPOT': 'Нафтобаза',
+  'GOVERNMENT_FACILITIES': 'Державні установи',
+  'FUEL_DEPOT': 'Паливний склад',
+  'EDUCATION_FACILITY': 'Освітній заклад (школа тощо)',
+  'RELIGIOUS_FACILITIES': 'Релігійні споруди',
+  'RESIDENTIAL_BUILDING': 'Житловий будинок',
+  'AIRPORT': 'Аеропорт',
+  'HEALTH_FACILITY': 'Медичний заклад (лікарня, клініка)',
+  'INDUSTRIAL_BUSINESS_ENTERPRISE': 'Промислові/Бізнес об`єкти',
+  'TELECOMMUNICATIONS': 'Телекомунікації',
+  'CHEMICAL_STORAGE_UNIT': 'Сховище хімічних речовин',
+  'ELECTRICITY_SUPPLY_SYSTEM': 'Система електропостачання',
+  'NUCLEAR_UNIT': 'Ядерний об`єкт',
+  'CULTURAL_FACILITIES': 'Культурні об`єкти (музей, театр тощо)',
+  'RAILWAY': 'Залізниця',
+  'GAS_SUPPLY_SYSTEM': 'Система газопостачання',
+  'WATER_SUPPLY_SYSTEM': 'Система водопостачання',
+  'POWER_PLANT': 'Електростанція',
+  'HARBOR': 'Порт',
+  'ROAD_HIGHWAY': 'Дорога / Автомагістраль',
+  'AGRICULTURAL_FACILITIES': 'Сільськогосподарські об`єкти',
+  'HEATING_AND_WATER_FACILITY': 'Об`єкт тепло- та водопостачання',
+  'OTHER': 'Інше'
+};
+
 export default function DamageReportForm() {
   const [formData, setFormData] = useState<DamageReport>({
     photoBefore: null,
@@ -98,12 +128,12 @@ export default function DamageReportForm() {
   const validateCurrentStep = () => {
     if (currentStep === 1) {
       if (!formData.photoAfter) {
-        setSubmitError('Будь ласка, додайте фото об&apos;єкта після руйнування');
+        setSubmitError('Будь ласка, додайте фото об`єкта після руйнування');
         return false;
       }
     } else if (currentStep === 2) {
       if (!formData.objectType) {
-        setSubmitError('Будь ласка, оберіть тип об&apos;єкта');
+        setSubmitError('Будь ласка, оберіть тип об`єкта');
         return false;
       }
       if (!formData.description) {
@@ -118,7 +148,7 @@ export default function DamageReportForm() {
     e.preventDefault();
     
     if (!formData.address) {
-      setSubmitError('Будь ласка, вкажіть адресу об&apos;єкта');
+      setSubmitError('Будь ласка, вкажіть адресу об`єкта');
       return;
     }
     
@@ -351,6 +381,71 @@ export default function DamageReportForm() {
           )}
         </div>
         
+        {/* Додані вхідні дані */}
+        <div className="mb-6 sm:mb-8 p-4 sm:p-6 bg-gray-50 rounded-lg border border-gray-200">
+          <h3 className="text-md sm:text-lg font-medium text-gray-900 mb-3">Вхідні дані для аналізу:</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              
+              <div className="flex flex-col">
+                <span className="text-xs text-gray-500">Тип інфраструктури:</span>
+                <span className="text-sm font-medium">{response.infrastructureType ? infrastructureTypeLabels[response.infrastructureType] || response.infrastructureType : 'Не вказано'}</span>
+              </div>
+              
+              <div className="flex flex-col">
+                <span className="text-xs text-gray-500">Адреса:</span>
+                <span className="text-sm font-medium">{response.address}</span>
+              </div>
+              
+              <div className="flex flex-col">
+                <span className="text-xs text-gray-500">Площа (м²):</span>
+                <span className="text-sm font-medium">{response.areaSizeSqM}</span>
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <div className="flex flex-col">
+                <span className="text-xs text-gray-500">Кількість поверхів:</span>
+                <span className="text-sm font-medium">{response.floors}</span>
+              </div>
+              
+              <div className="flex flex-col">
+                <span className="text-xs text-gray-500">Рік будівництва:</span>
+                <span className="text-sm font-medium">{response.constructionYear}</span>
+              </div>
+              
+              {response.photoBefore && (
+                <div className="flex flex-col">
+                  <span className="text-xs text-gray-500">Фото ДО:</span>
+                  <div className="mt-1 relative h-32 w-full rounded overflow-hidden border border-gray-200">
+                    <Image 
+                      src={response.photoBefore} 
+                      alt="Фото ДО руйнування" 
+                      fill 
+                      style={{ objectFit: 'cover' }} 
+                    />
+                  </div>
+                </div>
+              )}
+              
+              {response.photoAfter && (
+                <div className="flex flex-col">
+                  <span className="text-xs text-gray-500">Фото ПІСЛЯ:</span>
+                  <div className="mt-1 relative h-32 w-full rounded overflow-hidden border border-gray-200">
+                    <Image 
+                      src={response.photoAfter} 
+                      alt="Фото ПІСЛЯ руйнування" 
+                      fill 
+                      style={{ objectFit: 'cover' }} 
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        
         <div className="text-gray-700 mb-4 sm:mb-6 text-center text-xs sm:text-sm">
           <p>Увага: Вартість відновлення розрахована штучним інтелектом на основі наданих даних і фотографій. Фактична вартість робіт може відрізнятись в залежності від конкретних умов.</p>
         </div>
@@ -402,7 +497,7 @@ export default function DamageReportForm() {
       {/* Крок 1: Фотографії */}
       {currentStep === 1 && (
         <div className="space-y-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Фотографії об&apos;єкта</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Фотографії об`єкта</h2>
           
           {renderFileUpload('photoBefore', 'photoBefore', 'Фото ДО руйнування', photoBeforePreview, false)}
           {renderFileUpload('photoAfter', 'photoAfter', 'Фото ПІСЛЯ руйнування', photoAfterPreview, true)}
@@ -412,11 +507,11 @@ export default function DamageReportForm() {
       {/* Крок 2: Інформація про об'єкт */}
       {currentStep === 2 && (
         <div className="space-y-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Інформація про об&apos;єкт</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Інформація про об`єкт</h2>
           
           <div className="mb-6">
             <label htmlFor="objectType" className="block text-sm font-medium text-gray-700 mb-1">
-              Тип об&apos;єкта<span className="text-red-500">*</span>
+              Тип об`єкта<span className="text-red-500">*</span>
             </label>
             <select
               id="objectType"
@@ -426,7 +521,7 @@ export default function DamageReportForm() {
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition-colors"
               required
             >
-              <option value="" disabled>Оберіть тип об&apos;єкта</option>
+              <option value="" disabled>Оберіть тип об`єкта</option>
               <option value="WAREHOUSE">Склад</option>
               <option value="AIRCRAFT_REPAIR_PLANT">Авіаремонтний завод</option>
               <option value="BRIDGE">Міст</option>
@@ -435,22 +530,23 @@ export default function DamageReportForm() {
               <option value="FUEL_DEPOT">Паливний склад</option>
               <option value="EDUCATION_FACILITY">Освітній заклад (школа тощо)</option>
               <option value="RELIGIOUS_FACILITIES">Релігійні споруди</option>
+              <option value="RESIDENTIAL_BUILDING">Житловий будинок</option>
               <option value="AIRPORT">Аеропорт</option>
               <option value="HEALTH_FACILITY">Медичний заклад (лікарня, клініка)</option>
-              <option value="INDUSTRIAL_BUSINESS_ENTERPRISE">Промислові/Бізнес об&apos;єкти</option>
+              <option value="INDUSTRIAL_BUSINESS_ENTERPRISE">Промислові/Бізнес об`єкти</option>
               <option value="TELECOMMUNICATIONS">Телекомунікації</option>
               <option value="CHEMICAL_STORAGE_UNIT">Сховище хімічних речовин</option>
               <option value="ELECTRICITY_SUPPLY_SYSTEM">Система електропостачання</option>
-              <option value="NUCLEAR_UNIT">Ядерний об&apos;єкт</option>
-              <option value="CULTURAL_FACILITIES">Культурні об&apos;єкти (музей, театр тощо)</option>
+              <option value="NUCLEAR_UNIT">Ядерний об`єкт</option>
+              <option value="CULTURAL_FACILITIES">Культурні об`єкти (музей, театр тощо)</option>
               <option value="RAILWAY">Залізниця</option>
               <option value="GAS_SUPPLY_SYSTEM">Система газопостачання</option>
               <option value="WATER_SUPPLY_SYSTEM">Система водопостачання</option>
               <option value="POWER_PLANT">Електростанція</option>
               <option value="HARBOR">Порт</option>
               <option value="ROAD_HIGHWAY">Дорога / Шосе</option>
-              <option value="AGRICULTURAL_FACILITIES">Сільськогосподарські об&apos;єкти</option>
-              <option value="HEATING_AND_WATER_FACILITY">Опалювальні та водні об&apos;єкти</option>
+              <option value="AGRICULTURAL_FACILITIES">Сільськогосподарські об`єкти</option>
+              <option value="HEATING_AND_WATER_FACILITY">Опалювальні та водні об`єкти</option>
               <option value="OTHER">Інше</option>
             </select>
           </div>
@@ -474,7 +570,7 @@ export default function DamageReportForm() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
             <div>
               <label htmlFor="areaSizeSqM" className="block text-sm font-medium text-gray-700 mb-1">
-                Площа об&apos;єкта (м²)
+                Площа об`єкта (м²)
               </label>
               <input
                 type="number"
@@ -527,11 +623,11 @@ export default function DamageReportForm() {
       {/* Крок 3: Адреса */}
       {currentStep === 3 && (
         <div className="space-y-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Адреса об&apos;єкта</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Адреса об`єкта</h2>
           
           <div className="mb-6">
             <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
-              Адреса об&apos;єкта<span className="text-red-500">*</span>
+              Адреса об`єкта<span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -540,7 +636,7 @@ export default function DamageReportForm() {
               value={formData.address}
               onChange={handleInputChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition-colors"
-              placeholder="Повна адреса об&apos;єкта з вулицею, номером, містом та областю"
+              placeholder="Повна адреса об`єкта з вулицею, номером, містом та областю"
               required
             />
             <p className="mt-2 text-sm text-gray-500">
@@ -569,7 +665,7 @@ export default function DamageReportForm() {
         <div className="order-first sm:order-none mb-3 sm:mb-0 w-full sm:w-auto text-center">
           <p className="text-sm text-gray-500">
             {currentStep === totalSteps ? (
-              <>Поля, позначені <span className="text-red-500">*</span>, є обов&apos;язковими</>
+              <>Поля, позначені <span className="text-red-500">*</span>, є обов`язковими</>
             ) : (
               `Крок ${currentStep} з ${totalSteps}`
             )}

@@ -18,6 +18,19 @@ const UkraineMap = dynamic(() => import("@/components/UkraineMap"), {
    ),
 });
 
+// Динамічний імпорт графіка із затримкою завантаження для оптимізації
+const DamageBarChart = dynamic(() => import("@/components/DamageBarChart"), {
+   ssr: false,
+   loading: () => (
+      <div className="h-[400px] w-full bg-gray-100 rounded-lg flex items-center justify-center">
+         <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+            <p className="text-lg">Завантаження графіку...</p>
+         </div>
+      </div>
+   ),
+});
+
 export default function Home() {
    const [regionsData, setRegionsData] = useState<GeoJSON.FeatureCollection | undefined>(undefined);
    const [damageData, setDamageData] = useState<RegionSummary[] | undefined>(undefined);
@@ -186,6 +199,20 @@ export default function Home() {
                      </div>
                   </div>
                )}
+            </section>
+            
+            {/* Нова секція з графіком загальної статистики пошкоджень */}
+            <section id="damage-statistics" className="w-full h-full mb-12 md:mb-16 scroll-mt-16">
+               <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
+                  <div>
+                     <h2 className="text-3xl font-bold mb-2">Статистика пошкоджень</h2>
+                     <p className="text-gray-600">
+                        Аналіз фінансових втрат за категоріями пошкодженої інфраструктури
+                     </p>
+                  </div>
+               </div>
+               
+               <DamageBarChart />
             </section>
             
             <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 md:p-8 rounded-xl text-center mb-12 md:mb-16">
