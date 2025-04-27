@@ -2,226 +2,462 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet id="insert-sample-data" author="Roman">
         <insert tableName="damage_report">
-            <column name="description" value="Тріщини в стінах"/>
-
-            <column name="infrastructure_type" value="Міст"/>
+            <column name="description" value="Значні структурні пошкодження опор"/>
+            <column name="infrastructure_type" value="BRIDGE"/>
             <column name="area_size_sq_m" value="90.43"/>
-            <column name="floors" value="6"/>
             <column name="construction_year" value="2000"/>
             <column name="address" value="вул. Франка 15"/>
-            <column name="additional_info" value="Додаткова інформація 0"/>
+            <column name="additional_info" value="Потребує негайного укріплення несучих конструкцій"/>
             <column name="amount" value="835834.67"/>
-            <column name="addition_description" value="Додатковий опис 0"/>
         </insert>
-        <insert tableName="damage_report">
-            <column name="description" value="Пошкодження вікон та дверей"/>
-            <column name="infrastructure_type" value="Міст"/>
-            <column name="area_size_sq_m" value="540.66"/>
-            <column name="floors" value="7"/>
-            <column name="construction_year" value="1984"/>
-            <column name="address" value="вул. Київська 42"/>
-            <column name="additional_info" value="Додаткова інформація 1"/>
-            <column name="amount" value="260460.71"/>
-            <column name="addition_description" value="Додатковий опис 1"/>
-        </insert>
-        <insert tableName="damage_report">
-            <column name="description" value="Пошкодження вікон та дверей"/>
 
-            <column name="infrastructure_type" value="Школа"/>
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження навчальних приміщень та лабораторій"/>
+            <column name="infrastructure_type" value="EDUCATION_FACILITY"/>
             <column name="area_size_sq_m" value="942.08"/>
-            <column name="floors" value="17"/>
+            <column name="floors" value="4"/>
             <column name="construction_year" value="2002"/>
             <column name="address" value="вул. Соборна 8"/>
-            <column name="additional_info" value="Додаткова інформація 2"/>
+            <column name="additional_info" value="Потрібна заміна вікон та відновлення стін"/>
             <column name="amount" value="124478.81"/>
-            <column name="addition_description" value="Додатковий опис 2"/>
         </insert>
+
         <insert tableName="damage_report">
-            <column name="description" value="Руйнування фасаду"/>
-            <column name="infrastructure_type" value="Школа"/>
+            <column name="description" value="Руйнування операційного блоку та палат"/>
+            <column name="infrastructure_type" value="HEALTH_FACILITY"/>
             <column name="area_size_sq_m" value="572.73"/>
-            <column name="floors" value="20"/>
+            <column name="floors" value="5"/>
             <column name="construction_year" value="1977"/>
-            <column name="address" value="вул. Франка 15"/>
-            <column name="additional_info" value="Додаткова інформація 3"/>
+            <column name="additional_info" value="Термінова евакуація пацієнтів, потребує капітального ремонту"/>
             <column name="amount" value="499981.38"/>
-            <column name="addition_description" value="Додатковий опис 3"/>
         </insert>
+
         <insert tableName="damage_report">
-            <column name="description" value="Руйнування даху"/>
-            <column name="infrastructure_type" value="Міст"/>
-            <column name="area_size_sq_m" value="148.44"/>
-            <column name="floors" value="16"/>
-            <column name="construction_year" value="2009"/>
-            <column name="address" value="просп. Перемоги 25"/>
-            <column name="additional_info" value="Додаткова інформація 4"/>
-            <column name="amount" value="999586.51"/>
-            <column name="addition_description" value="Додатковий опис 4"/>
-        </insert>
-        <insert tableName="damage_report">
-            <column name="description" value="Тріщини в стінах"/>
-            <column name="infrastructure_type" value="Школа"/>
-            <column name="area_size_sq_m" value="783.75"/>
-            <column name="floors" value="6"/>
-            <column name="construction_year" value="1997"/>
-            <column name="address" value="вул. Київська 42"/>
-            <column name="additional_info" value="Додаткова інформація 5"/>
-            <column name="amount" value="90909.68"/>
-            <column name="addition_description" value="Додатковий опис 5"/>
-        </insert>
-        <insert tableName="damage_report">
-            <column name="description" value="Руйнування даху"/>
-            <column name="infrastructure_type" value="Промислова будівля"/>
-            <column name="area_size_sq_m" value="59.32"/>
-            <column name="floors" value="7"/>
-            <column name="construction_year" value="2006"/>
-            <column name="address" value="вул. Франка 15"/>
-            <column name="additional_info" value="Додаткова інформація 6"/>
-            <column name="amount" value="192773.92"/>
-            <column name="addition_description" value="Додатковий опис 6"/>
-        </insert>
-        <insert tableName="damage_report">
-            <column name="description" value="Руйнування даху"/>
-            <column name="infrastructure_type" value="Школа"/>
-            <column name="area_size_sq_m" value="255.46"/>
-            <column name="floors" value="6"/>
-            <column name="construction_year" value="2018"/>
-            <column name="address" value="просп. Перемоги 25"/>
-            <column name="additional_info" value="Додаткова інформація 7"/>
-            <column name="amount" value="576396.51"/>
-            <column name="addition_description" value="Додатковий опис 7"/>
-        </insert>
-        <insert tableName="damage_report">
-            <column name="description" value="Пошкодження вікон та дверей"/>
-            <column name="infrastructure_type" value="Житловий будинок"/>
-            <column name="area_size_sq_m" value="832.13"/>
-            <column name="floors" value="1"/>
-            <column name="construction_year" value="1962"/>
-            <column name="address" value="вул. Київська 42"/>
-            <column name="additional_info" value="Додаткова інформація 8"/>
-            <column name="amount" value="526307.11"/>
-            <column name="addition_description" value="Додатковий опис 8"/>
-        </insert>
-        <insert tableName="damage_report">
-            <column name="description" value="Руйнування фасаду"/>
-            <column name="infrastructure_type" value="Промислова будівля"/>
-            <column name="area_size_sq_m" value="888.11"/>
-            <column name="floors" value="14"/>
-            <column name="construction_year" value="2012"/>
-            <column name="address" value="вул. Київська 42"/>
-            <column name="additional_info" value="Додаткова інформація 9"/>
-            <column name="amount" value="949303.28"/>
-            <column name="addition_description" value="Додатковий опис 9"/>
-        </insert>
-        <insert tableName="damage_report">
-            <column name="description" value="Тріщини в стінах"/>
-            <column name="infrastructure_type" value="Міст"/>
-            <column name="area_size_sq_m" value="849.14"/>
-            <column name="floors" value="20"/>
-            <column name="construction_year" value="1960"/>
-            <column name="address" value="вул. Шевченка 10"/>
-            <column name="additional_info" value="Додаткова інформація 10"/>
-            <column name="amount" value="395281.25"/>
-            <column name="addition_description" value="Додатковий опис 10"/>
-        </insert>
-        <insert tableName="damage_report">
-            <column name="description" value="Пошкодження несучих конструкцій"/>
-            <column name="infrastructure_type" value="Міст"/>
-            <column name="area_size_sq_m" value="200.07"/>
-            <column name="floors" value="15"/>
-            <column name="construction_year" value="1988"/>
-            <column name="address" value="просп. Перемоги 25"/>
-            <column name="additional_info" value="Додаткова інформація 11"/>
-            <column name="amount" value="715942.99"/>
-            <column name="addition_description" value="Додатковий опис 11"/>
-        </insert>
-        <insert tableName="damage_report">
-            <column name="description" value="Руйнування даху"/>
-            <column name="infrastructure_type" value="Житловий будинок"/>
-            <column name="area_size_sq_m" value="234.66"/>
-            <column name="floors" value="19"/>
-            <column name="construction_year" value="2012"/>
-            <column name="address" value="вул. Франка 15"/>
-            <column name="additional_info" value="Додаткова інформація 12"/>
-            <column name="amount" value="769344.47"/>
-            <column name="addition_description" value="Додатковий опис 12"/>
-        </insert>
-        <insert tableName="damage_report">
-            <column name="description" value="Тріщини в стінах"/>
-            <column name="infrastructure_type" value="Дорога"/>
-            <column name="area_size_sq_m" value="460.9"/>
-            <column name="floors" value="18"/>
-            <column name="construction_year" value="2006"/>
-            <column name="address" value="вул. Франка 15"/>
-            <column name="additional_info" value="Додаткова інформація 13"/>
-            <column name="amount" value="292590.29"/>
-            <column name="addition_description" value="Додатковий опис 13"/>
-        </insert>
-        <insert tableName="damage_report">
-            <column name="description" value="Пошкодження несучих конструкцій"/>
-            <column name="infrastructure_type" value="Школа"/>
-            <column name="area_size_sq_m" value="446.3"/>
-            <column name="floors" value="13"/>
-            <column name="construction_year" value="1966"/>
-            <column name="address" value="вул. Франка 15"/>
-            <column name="additional_info" value="Додаткова інформація 14"/>
-            <column name="amount" value="37244.47"/>
-            <column name="addition_description" value="Додатковий опис 14"/>
-        </insert>
-        <insert tableName="damage_report">
-            <column name="description" value="Руйнування фасаду"/>
-            <column name="infrastructure_type" value="Дорога"/>
+            <column name="description" value="Пошкодження асфальтового покриття та розмітки"/>
+            <column name="infrastructure_type" value="ROAD_HIGHWAY"/>
             <column name="area_size_sq_m" value="879.22"/>
-            <column name="floors" value="13"/>
             <column name="construction_year" value="1958"/>
             <column name="address" value="вул. Шевченка 10"/>
-            <column name="additional_info" value="Додаткова інформація 15"/>
+            <column name="additional_info" value="Потребує термінового ремонту для відновлення руху"/>
             <column name="amount" value="763827.61"/>
-            <column name="addition_description" value="Додатковий опис 15"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування житлових приміщень"/>
+            <column name="infrastructure_type" value="RESIDENTIAL_BUILDING"/>
+            <column name="area_size_sq_m" value="832.13"/>
+            <column name="floors" value="9"/>
+            <column name="construction_year" value="1962"/>
+            <column name="address" value="вул. Київська 42"/>
+            <column name="additional_info" value="Необхідна термінова евакуація мешканців"/>
+            <column name="amount" value="526307.11"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження системи водопостачання"/>
+            <column name="infrastructure_type" value="WATER_SUPPLY_SYSTEM"/>
+            <column name="area_size_sq_m" value="200.07"/>
+            <column name="construction_year" value="1988"/>
+            <column name="address" value="просп. Перемоги 25"/>
+            <column name="additional_info" value="Витік води, необхідний терміновий ремонт"/>
+            <column name="amount" value="715942.99"/>
         </insert>
         <insert tableName="damage_report">
-            <column name="description" value="Пошкодження несучих конструкцій"/>
-            <column name="infrastructure_type" value="Школа"/>
-            <column name="area_size_sq_m" value="182.75"/>
-            <column name="floors" value="12"/>
-            <column name="construction_year" value="2004"/>
-            <column name="address" value="вул. Франка 15"/>
-            <column name="additional_info" value="Додаткова інформація 16"/>
-            <column name="amount" value="670949.26"/>
-            <column name="addition_description" value="Додатковий опис 16"/>
+            <column name="description" value="Частковий обвал несучих конструкцій"/>
+            <column name="infrastructure_type" value="WAREHOUSE"/>
+            <column name="area_size_sq_m" value="1250.30"/>
+            <column name="floors" value="1"/>
+            <column name="construction_year" value="1995"/>
+            <column name="address" value="вул. Промислова 55"/>
+            <column name="additional_info" value="Пошкодження складських приміщень та систем вентиляції"/>
+            <column name="amount" value="943567.45"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження злітно-посадкової смуги"/>
+            <column name="infrastructure_type" value="AIRPORT"/>
+            <column name="area_size_sq_m" value="12500.00"/>
+            <column name="construction_year" value="1980"/>
+            <column name="address" value="Аеропорт 'Західний'"/>
+            <column name="additional_info" value="Множинні воронки та деформація покриття"/>
+            <column name="amount" value="1567834.20"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування трансформаторної підстанції"/>
+            <column name="infrastructure_type" value="ELECTRICITY_SUPPLY_SYSTEM"/>
+            <column name="area_size_sq_m" value="156.40"/>
+            <column name="construction_year" value="2005"/>
+            <column name="address" value="вул. Енергетиків 12"/>
+            <column name="additional_info" value="Пошкодження розподільчих щитів та кабельних ліній"/>
+            <column name="amount" value="678234.90"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження експозиційних залів"/>
+            <column name="infrastructure_type" value="CULTURAL_FACILITIES"/>
+            <column name="area_size_sq_m" value="450.80"/>
+            <column name="floors" value="3"/>
+            <column name="construction_year" value="1962"/>
+            <column name="address" value="вул. Музейна 8"/>
+            <column name="additional_info" value="Пошкодження історичних експонатів та вітражів"/>
+            <column name="amount" value="892345.67"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування залізничного полотна"/>
+            <column name="infrastructure_type" value="RAILWAY"/>
+            <column name="area_size_sq_m" value="2300.00"/>
+            <column name="construction_year" value="1975"/>
+            <column name="address" value="Залізнична станція 'Центральна'"/>
+            <column name="additional_info" value="Деформація рейок та шпал"/>
+            <column name="amount" value="754123.89"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження газорозподільної станції"/>
+            <column name="infrastructure_type" value="GAS_SUPPLY_SYSTEM"/>
+            <column name="area_size_sq_m" value="180.50"/>
+            <column name="construction_year" value="1998"/>
+            <column name="address" value="вул. Газовиків 45"/>
+            <column name="additional_info" value="Пошкодження регуляторів тиску та трубопроводів"/>
+            <column name="amount" value="456789.23"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування складу хімічних речовин"/>
+            <column name="infrastructure_type" value="CHEMICAL_STORAGE_UNIT"/>
+            <column name="area_size_sq_m" value="340.60"/>
+            <column name="floors" value="1"/>
+            <column name="construction_year" value="2008"/>
+            <column name="address" value="Промзона 2"/>
+            <column name="additional_info" value="Пошкодження систем зберігання та вентиляції"/>
+            <column name="amount" value="987654.32"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження систем охолодження"/>
+            <column name="infrastructure_type" value="NUCLEAR_UNIT"/>
+            <column name="area_size_sq_m" value="890.30"/>
+            <column name="construction_year" value="1989"/>
+            <column name="address" value="Енергокомплекс"/>
+            <column name="additional_info" value="Пошкодження допоміжних систем та огороджень"/>
+            <column name="amount" value="1234567.89"/>
         </insert>
         <insert tableName="damage_report">
-            <column name="description" value="Руйнування фасаду"/>
-            <column name="infrastructure_type" value="Лікарня"/>
-            <column name="area_size_sq_m" value="297.05"/>
-            <column name="floors" value="18"/>
-            <column name="construction_year" value="2004"/>
-            <column name="address" value="вул. Соборна 8"/>
-            <column name="additional_info" value="Додаткова інформація 17"/>
-            <column name="amount" value="930832.58"/>
-            <column name="addition_description" value="Додатковий опис 17"/>
+            <column name="description" value="Руйнування ремонтних цехів"/>
+            <column name="infrastructure_type" value="AIRCRAFT_REPAIR_PLANT"/>
+            <column name="area_size_sq_m" value="1680.45"/>
+            <column name="floors" value="2"/>
+            <column name="construction_year" value="1986"/>
+            <column name="address" value="Авіамістечко 3"/>
+            <column name="additional_info" value="Пошкодження технічного обладнання та підйомних механізмів"/>
+            <column name="amount" value="1876543.21"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження резервуарів зберігання"/>
+            <column name="infrastructure_type" value="OIL_DEPOT"/>
+            <column name="area_size_sq_m" value="2340.75"/>
+            <column name="construction_year" value="1992"/>
+            <column name="address" value="Нафтобаза 'Південна'"/>
+            <column name="additional_info" value="Пошкодження обвалування та систем пожежогасіння"/>
+            <column name="amount" value="2345678.90"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування адміністративної будівлі"/>
+            <column name="infrastructure_type" value="GOVERNMENT_FACILITIES"/>
+            <column name="area_size_sq_m" value="780.20"/>
+            <column name="floors" value="4"/>
+            <column name="construction_year" value="1978"/>
+            <column name="address" value="майдан Свободи 12"/>
+            <column name="additional_info" value="Пошкодження архівних приміщень та комунікацій"/>
+            <column name="amount" value="987123.45"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження паливних терміналів"/>
+            <column name="infrastructure_type" value="FUEL_DEPOT"/>
+            <column name="area_size_sq_m" value="1230.60"/>
+            <column name="construction_year" value="2001"/>
+            <column name="address" value="Промзона 'Схід'"/>
+            <column name="additional_info" value="Пошкодження насосного обладнання та трубопроводів"/>
+            <column name="amount" value="1654321.00"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування комутаційного центру"/>
+            <column name="infrastructure_type" value="TELECOMMUNICATIONS"/>
+            <column name="area_size_sq_m" value="245.30"/>
+            <column name="floors" value="2"/>
+            <column name="construction_year" value="2015"/>
+            <column name="address" value="вул. Зв'язку 7"/>
+            <column name="additional_info" value="Пошкодження серверного обладнання та антен"/>
+            <column name="amount" value="876543.21"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження турбінного відділення"/>
+            <column name="infrastructure_type" value="POWER_PLANT"/>
+            <column name="area_size_sq_m" value="3450.80"/>
+            <column name="floors" value="3"/>
+            <column name="construction_year" value="1982"/>
+            <column name="address" value="Енергетична 56"/>
+            <column name="additional_info" value="Пошкодження генераторів та систем охолодження"/>
+            <column name="amount" value="3456789.12"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування портових кранів"/>
+            <column name="infrastructure_type" value="HARBOR"/>
+            <column name="area_size_sq_m" value="4560.90"/>
+            <column name="construction_year" value="1995"/>
+            <column name="address" value="Портова гавань 2"/>
+            <column name="additional_info" value="Пошкодження вантажного терміналу та причалів"/>
+            <column name="amount" value="2987654.32"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження тепличного комплексу"/>
+            <column name="infrastructure_type" value="AGRICULTURAL_FACILITIES"/>
+            <column name="area_size_sq_m" value="5670.40"/>
+            <column name="construction_year" value="2012"/>
+            <column name="address" value="Агрокомплекс 'Весна'"/>
+            <column name="additional_info" value="Пошкодження систем поливу та клімат-контролю"/>
+            <column name="amount" value="1234987.65"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування котельні"/>
+            <column name="infrastructure_type" value="HEATING_AND_WATER_FACILITY"/>
+            <column name="area_size_sq_m" value="380.25"/>
+            <column name="floors" value="2"/>
+            <column name="construction_year" value="1988"/>
+            <column name="address" value="вул. Теплова 23"/>
+            <column name="additional_info" value="Пошкодження котлів та теплообмінників"/>
+            <column name="amount" value="789456.23"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження виробничих ліній"/>
+            <column name="infrastructure_type" value="INDUSTRIAL_BUSINESS_ENTERPRISE"/>
+            <column name="area_size_sq_m" value="2890.60"/>
+            <column name="floors" value="1"/>
+            <column name="construction_year" value="2005"/>
+            <column name="address" value="Індустріальний парк 5"/>
+            <column name="additional_info" value="Пошкодження конвеєрів та автоматизованих систем"/>
+            <column name="amount" value="2345678.90"/>
         </insert>
         <insert tableName="damage_report">
-            <column name="description" value="Пошкодження вікон та дверей"/>
-            <column name="infrastructure_type" value="Дорога"/>
-            <column name="area_size_sq_m" value="535.01"/>
+            <column name="description" value="Руйнування храмового комплексу"/>
+            <column name="infrastructure_type" value="RELIGIOUS_FACILITIES"/>
+            <column name="area_size_sq_m" value="890.45"/>
+            <column name="floors" value="3"/>
+            <column name="construction_year" value="1867"/>
+            <column name="address" value="вул. Церковна 1"/>
+            <column name="additional_info" value="Пошкодження куполів та історичних фресок"/>
+            <column name="amount" value="4567890.12"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження диспетчерської вежі"/>
+            <column name="infrastructure_type" value="AIRPORT"/>
+            <column name="area_size_sq_m" value="156.78"/>
+            <column name="floors" value="8"/>
+            <column name="construction_year" value="1999"/>
+            <column name="address" value="Аеропорт 'Східний'"/>
+            <column name="additional_info" value="Пошкодження радіолокаційного обладнання"/>
+            <column name="amount" value="1987654.32"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування очисних споруд"/>
+            <column name="infrastructure_type" value="WATER_SUPPLY_SYSTEM"/>
+            <column name="area_size_sq_m" value="3456.70"/>
+            <column name="construction_year" value="1985"/>
+            <column name="address" value="Водоканал 4"/>
+            <column name="additional_info" value="Пошкодження фільтраційних систем"/>
+            <column name="amount" value="2345678.90"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження лабораторного корпусу"/>
+            <column name="infrastructure_type" value="EDUCATION_FACILITY"/>
+            <column name="area_size_sq_m" value="1234.56"/>
+            <column name="floors" value="4"/>
+            <column name="construction_year" value="1995"/>
+            <column name="address" value="просп. Науки 45"/>
+            <column name="additional_info" value="Пошкодження дослідницького обладнання"/>
+            <column name="amount" value="1678901.23"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування підземного сховища"/>
+            <column name="infrastructure_type" value="CHEMICAL_STORAGE_UNIT"/>
+            <column name="area_size_sq_m" value="567.89"/>
+            <column name="floors" value="1"/>
+            <column name="construction_year" value="2008"/>
+            <column name="address" value="Промзона 'Захід'"/>
+            <column name="additional_info" value="Пошкодження герметичних контейнерів"/>
+            <column name="amount" value="3456789.01"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження зерносховища"/>
+            <column name="infrastructure_type" value="AGRICULTURAL_FACILITIES"/>
+            <column name="area_size_sq_m" value="4321.00"/>
+            <column name="floors" value="4"/>
+            <column name="construction_year" value="2010"/>
+            <column name="address" value="Елеватор 'Колос'"/>
+            <column name="additional_info" value="Пошкодження систем вентиляції зерна"/>
+            <column name="amount" value="1234567.89"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування житлового комплексу"/>
+            <column name="infrastructure_type" value="RESIDENTIAL_BUILDING"/>
+            <column name="area_size_sq_m" value="5678.90"/>
+            <column name="floors" value="16"/>
+            <column name="construction_year" value="2015"/>
+            <column name="address" value="вул. Затишна 78"/>
+            <column name="additional_info" value="Пошкодження несучих конструкцій та комунікацій"/>
+            <column name="amount" value="5678901.23"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження трансформаторної станції"/>
+            <column name="infrastructure_type" value="ELECTRICITY_SUPPLY_SYSTEM"/>
+            <column name="area_size_sq_m" value="234.56"/>
+            <column name="construction_year" value="2003"/>
+            <column name="address" value="вул. Електриків 89"/>
+            <column name="additional_info" value="Пошкодження високовольтного обладнання"/>
+            <column name="amount" value="890123.45"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування театрального комплексу"/>
+            <column name="infrastructure_type" value="CULTURAL_FACILITIES"/>
+            <column name="area_size_sq_m" value="2345.67"/>
+            <column name="floors" value="5"/>
+            <column name="construction_year" value="1956"/>
+            <column name="address" value="площа Театральна 3"/>
+            <column name="additional_info" value="Пошкодження сцени та глядацької зали"/>
+            <column name="amount" value="4567890.12"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження реанімаційного відділення"/>
+            <column name="infrastructure_type" value="HEALTH_FACILITY"/>
+            <column name="area_size_sq_m" value="789.01"/>
+            <column name="floors" value="3"/>
+            <column name="construction_year" value="2012"/>
+            <column name="address" value="вул. Лікарняна 12"/>
+            <column name="additional_info" value="Пошкодження медичного обладнання"/>
+            <column name="amount" value="2345678.90"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування вантажного терміналу"/>
+            <column name="infrastructure_type" value="WAREHOUSE"/>
+            <column name="area_size_sq_m" value="6789.12"/>
+            <column name="floors" value="2"/>
+            <column name="construction_year" value="2007"/>
+            <column name="address" value="Логістичний центр 'Схід'"/>
+            <column name="additional_info" value="Пошкодження стелажних систем та навантажувачів"/>
+            <column name="amount" value="3456789.01"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження газорозподільного пункту"/>
+            <column name="infrastructure_type" value="GAS_SUPPLY_SYSTEM"/>
+            <column name="area_size_sq_m" value="123.45"/>
+            <column name="construction_year" value="1998"/>
+            <column name="address" value="вул. Газова 34"/>
+            <column name="additional_info" value="Пошкодження автоматики та датчиків"/>
+            <column name="amount" value="789012.34"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування мостового переходу"/>
+            <column name="infrastructure_type" value="BRIDGE"/>
+            <column name="area_size_sq_m" value="3456.78"/>
+            <column name="construction_year" value="1976"/>
+            <column name="address" value="Річковий міст 'Центральний'"/>
+            <column name="additional_info" value="Пошкодження опор та дорожнього полотна"/>
+            <column name="amount" value="6789012.34"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження серверного центру"/>
+            <column name="infrastructure_type" value="TELECOMMUNICATIONS"/>
+            <column name="area_size_sq_m" value="567.89"/>
             <column name="floors" value="3"/>
             <column name="construction_year" value="2018"/>
-            <column name="address" value="вул. Шевченка 10"/>
-            <column name="additional_info" value="Додаткова інформація 18"/>
-            <column name="amount" value="263222.46"/>
-            <column name="addition_description" value="Додатковий опис 18"/>
+            <column name="address" value="вул. Цифрова 21"/>
+            <column name="additional_info" value="Пошкодження оптоволоконних ліній"/>
+            <column name="amount" value="2345678.90"/>
         </insert>
+
         <insert tableName="damage_report">
-            <column name="description" value="Пошкодження вікон та дверей"/>
-            <column name="infrastructure_type" value="Школа"/>
-            <column name="area_size_sq_m" value="194.89"/>
-            <column name="floors" value="16"/>
-            <column name="construction_year" value="1989"/>
-            <column name="address" value="просп. Перемоги 25"/>
-            <column name="additional_info" value="Додаткова інформація 19"/>
-            <column name="amount" value="406571.86"/>
-            <column name="addition_description" value="Додатковий опис 19"/>
+            <column name="description" value="Руйнування градирні"/>
+            <column name="infrastructure_type" value="POWER_PLANT"/>
+            <column name="area_size_sq_m" value="890.12"/>
+            <column name="construction_year" value="1984"/>
+            <column name="address" value="ТЕС 'Енергія'"/>
+            <column name="additional_info" value="Пошкодження систем охолодження"/>
+            <column name="amount" value="4567890.12"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження залізничного депо"/>
+            <column name="infrastructure_type" value="RAILWAY"/>
+            <column name="area_size_sq_m" value="4567.89"/>
+            <column name="floors" value="2"/>
+            <column name="construction_year" value="1969"/>
+            <column name="address" value="Залізничне депо 'Північне'"/>
+            <column name="additional_info" value="Пошкодження ремонтного обладнання"/>
+            <column name="amount" value="3456789.01"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування причальної стінки"/>
+            <column name="infrastructure_type" value="HARBOR"/>
+            <column name="area_size_sq_m" value="2345.67"/>
+            <column name="construction_year" value="1992"/>
+            <column name="address" value="Морський порт"/>
+            <column name="additional_info" value="Пошкодження вантажних кранів"/>
+            <column name="amount" value="5678901.23"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження архівного сховища"/>
+            <column name="infrastructure_type" value="GOVERNMENT_FACILITIES"/>
+            <column name="area_size_sq_m" value="678.90"/>
+            <column name="floors" value="4"/>
+            <column name="construction_year" value="1988"/>
+            <column name="address" value="вул. Адміністративна 5"/>
+            <column name="additional_info" value="Пошкодження систем зберігання документів"/>
+            <column name="amount" value="1234567.89"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування складу паливно-мастильних матеріалів"/>
+            <column name="infrastructure_type" value="FUEL_DEPOT"/>
+            <column name="area_size_sq_m" value="1234.56"/>
+            <column name="construction_year" value="2001"/>
+            <column name="address" value="Нафтобаза 2"/>
+            <column name="additional_info" value="Пошкодження резервуарів зберігання"/>
+            <column name="amount" value="4567890.12"/>
+        </insert>
+
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження системи водоочистки"/>
+            <column name="infrastructure_type" value="WATER_SUPPLY_SYSTEM"/>
+            <column name="area_size_sq_m" value="890.12"/>
+            <column name="construction_year" value="2005"/>
+            <column name="address" value="Водоочисна станція 'Дніпро'"/>
+            <column name="additional_info" value="Пошкодження фільтраційного обладнання"/>
+            <column name="amount" value="2345678.90"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
