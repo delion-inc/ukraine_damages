@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="create-damage-report-table" author="Roman">
+        <createTable tableName="damage_report">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="photo_before" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="photo_after" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="infrastructure_type" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="area_size_sq_m" type="DOUBLE PRECISION">
+                <constraints nullable="true"/>
+            </column>
+            <column name="floors" type="INTEGER">
+                <constraints nullable="true"/>
+            </column>
+            <column name="construction_year" type="INTEGER">
+                <constraints nullable="true"/>
+            </column>
+            <column name="address" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="additional_info" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="amount" type="DECIMAL(20,2)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="addition_description" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
