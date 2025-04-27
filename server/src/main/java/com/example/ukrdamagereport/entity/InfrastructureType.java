@@ -25,6 +25,7 @@ public enum InfrastructureType {
     ROAD_HIGHWAY("Road / Highway"),
     AGRICULTURAL_FACILITIES("Agricultural facilities"),
     HEATING_AND_WATER_FACILITY("Heating and water facility"),
+    RESIDENTIAL_BUILDING("Residential building"),
     OTHER("Other");
 
     private final String value;

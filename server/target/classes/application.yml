@@ -15,7 +15,7 @@ spring:
 
 app:
   base-url: http://localhost:8080
-  upload-dir: ${user.dir}/src/main/resources/static/images
+  upload-dir: ${project.basedir:${user.dir}}/src/main/resources/static/images
   python-url: http://93.127.131.80:8000/response
 
 server:
