@@ -1,0 +1,227 @@
+<?xml version="1.0" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet id="insert-sample-data" author="Roman">
+        <insert tableName="damage_report">
+            <column name="description" value="Тріщини в стінах"/>
+
+            <column name="infrastructure_type" value="Міст"/>
+            <column name="area_size_sq_m" value="90.43"/>
+            <column name="floors" value="6"/>
+            <column name="construction_year" value="2000"/>
+            <column name="address" value="вул. Франка 15"/>
+            <column name="additional_info" value="Додаткова інформація 0"/>
+            <column name="amount" value="835834.67"/>
+            <column name="addition_description" value="Додатковий опис 0"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження вікон та дверей"/>
+            <column name="infrastructure_type" value="Міст"/>
+            <column name="area_size_sq_m" value="540.66"/>
+            <column name="floors" value="7"/>
+            <column name="construction_year" value="1984"/>
+            <column name="address" value="вул. Київська 42"/>
+            <column name="additional_info" value="Додаткова інформація 1"/>
+            <column name="amount" value="260460.71"/>
+            <column name="addition_description" value="Додатковий опис 1"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження вікон та дверей"/>
+
+            <column name="infrastructure_type" value="Школа"/>
+            <column name="area_size_sq_m" value="942.08"/>
+            <column name="floors" value="17"/>
+            <column name="construction_year" value="2002"/>
+            <column name="address" value="вул. Соборна 8"/>
+            <column name="additional_info" value="Додаткова інформація 2"/>
+            <column name="amount" value="124478.81"/>
+            <column name="addition_description" value="Додатковий опис 2"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування фасаду"/>
+            <column name="infrastructure_type" value="Школа"/>
+            <column name="area_size_sq_m" value="572.73"/>
+            <column name="floors" value="20"/>
+            <column name="construction_year" value="1977"/>
+            <column name="address" value="вул. Франка 15"/>
+            <column name="additional_info" value="Додаткова інформація 3"/>
+            <column name="amount" value="499981.38"/>
+            <column name="addition_description" value="Додатковий опис 3"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування даху"/>
+            <column name="infrastructure_type" value="Міст"/>
+            <column name="area_size_sq_m" value="148.44"/>
+            <column name="floors" value="16"/>
+            <column name="construction_year" value="2009"/>
+            <column name="address" value="просп. Перемоги 25"/>
+            <column name="additional_info" value="Додаткова інформація 4"/>
+            <column name="amount" value="999586.51"/>
+            <column name="addition_description" value="Додатковий опис 4"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Тріщини в стінах"/>
+            <column name="infrastructure_type" value="Школа"/>
+            <column name="area_size_sq_m" value="783.75"/>
+            <column name="floors" value="6"/>
+            <column name="construction_year" value="1997"/>
+            <column name="address" value="вул. Київська 42"/>
+            <column name="additional_info" value="Додаткова інформація 5"/>
+            <column name="amount" value="90909.68"/>
+            <column name="addition_description" value="Додатковий опис 5"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування даху"/>
+            <column name="infrastructure_type" value="Промислова будівля"/>
+            <column name="area_size_sq_m" value="59.32"/>
+            <column name="floors" value="7"/>
+            <column name="construction_year" value="2006"/>
+            <column name="address" value="вул. Франка 15"/>
+            <column name="additional_info" value="Додаткова інформація 6"/>
+            <column name="amount" value="192773.92"/>
+            <column name="addition_description" value="Додатковий опис 6"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування даху"/>
+            <column name="infrastructure_type" value="Школа"/>
+            <column name="area_size_sq_m" value="255.46"/>
+            <column name="floors" value="6"/>
+            <column name="construction_year" value="2018"/>
+            <column name="address" value="просп. Перемоги 25"/>
+            <column name="additional_info" value="Додаткова інформація 7"/>
+            <column name="amount" value="576396.51"/>
+            <column name="addition_description" value="Додатковий опис 7"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження вікон та дверей"/>
+            <column name="infrastructure_type" value="Житловий будинок"/>
+            <column name="area_size_sq_m" value="832.13"/>
+            <column name="floors" value="1"/>
+            <column name="construction_year" value="1962"/>
+            <column name="address" value="вул. Київська 42"/>
+            <column name="additional_info" value="Додаткова інформація 8"/>
+            <column name="amount" value="526307.11"/>
+            <column name="addition_description" value="Додатковий опис 8"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування фасаду"/>
+            <column name="infrastructure_type" value="Промислова будівля"/>
+            <column name="area_size_sq_m" value="888.11"/>
+            <column name="floors" value="14"/>
+            <column name="construction_year" value="2012"/>
+            <column name="address" value="вул. Київська 42"/>
+            <column name="additional_info" value="Додаткова інформація 9"/>
+            <column name="amount" value="949303.28"/>
+            <column name="addition_description" value="Додатковий опис 9"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Тріщини в стінах"/>
+            <column name="infrastructure_type" value="Міст"/>
+            <column name="area_size_sq_m" value="849.14"/>
+            <column name="floors" value="20"/>
+            <column name="construction_year" value="1960"/>
+            <column name="address" value="вул. Шевченка 10"/>
+            <column name="additional_info" value="Додаткова інформація 10"/>
+            <column name="amount" value="395281.25"/>
+            <column name="addition_description" value="Додатковий опис 10"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження несучих конструкцій"/>
+            <column name="infrastructure_type" value="Міст"/>
+            <column name="area_size_sq_m" value="200.07"/>
+            <column name="floors" value="15"/>
+            <column name="construction_year" value="1988"/>
+            <column name="address" value="просп. Перемоги 25"/>
+            <column name="additional_info" value="Додаткова інформація 11"/>
+            <column name="amount" value="715942.99"/>
+            <column name="addition_description" value="Додатковий опис 11"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування даху"/>
+            <column name="infrastructure_type" value="Житловий будинок"/>
+            <column name="area_size_sq_m" value="234.66"/>
+            <column name="floors" value="19"/>
+            <column name="construction_year" value="2012"/>
+            <column name="address" value="вул. Франка 15"/>
+            <column name="additional_info" value="Додаткова інформація 12"/>
+            <column name="amount" value="769344.47"/>
+            <column name="addition_description" value="Додатковий опис 12"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Тріщини в стінах"/>
+            <column name="infrastructure_type" value="Дорога"/>
+            <column name="area_size_sq_m" value="460.9"/>
+            <column name="floors" value="18"/>
+            <column name="construction_year" value="2006"/>
+            <column name="address" value="вул. Франка 15"/>
+            <column name="additional_info" value="Додаткова інформація 13"/>
+            <column name="amount" value="292590.29"/>
+            <column name="addition_description" value="Додатковий опис 13"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження несучих конструкцій"/>
+            <column name="infrastructure_type" value="Школа"/>
+            <column name="area_size_sq_m" value="446.3"/>
+            <column name="floors" value="13"/>
+            <column name="construction_year" value="1966"/>
+            <column name="address" value="вул. Франка 15"/>
+            <column name="additional_info" value="Додаткова інформація 14"/>
+            <column name="amount" value="37244.47"/>
+            <column name="addition_description" value="Додатковий опис 14"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування фасаду"/>
+            <column name="infrastructure_type" value="Дорога"/>
+            <column name="area_size_sq_m" value="879.22"/>
+            <column name="floors" value="13"/>
+            <column name="construction_year" value="1958"/>
+            <column name="address" value="вул. Шевченка 10"/>
+            <column name="additional_info" value="Додаткова інформація 15"/>
+            <column name="amount" value="763827.61"/>
+            <column name="addition_description" value="Додатковий опис 15"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження несучих конструкцій"/>
+            <column name="infrastructure_type" value="Школа"/>
+            <column name="area_size_sq_m" value="182.75"/>
+            <column name="floors" value="12"/>
+            <column name="construction_year" value="2004"/>
+            <column name="address" value="вул. Франка 15"/>
+            <column name="additional_info" value="Додаткова інформація 16"/>
+            <column name="amount" value="670949.26"/>
+            <column name="addition_description" value="Додатковий опис 16"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Руйнування фасаду"/>
+            <column name="infrastructure_type" value="Лікарня"/>
+            <column name="area_size_sq_m" value="297.05"/>
+            <column name="floors" value="18"/>
+            <column name="construction_year" value="2004"/>
+            <column name="address" value="вул. Соборна 8"/>
+            <column name="additional_info" value="Додаткова інформація 17"/>
+            <column name="amount" value="930832.58"/>
+            <column name="addition_description" value="Додатковий опис 17"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження вікон та дверей"/>
+            <column name="infrastructure_type" value="Дорога"/>
+            <column name="area_size_sq_m" value="535.01"/>
+            <column name="floors" value="3"/>
+            <column name="construction_year" value="2018"/>
+            <column name="address" value="вул. Шевченка 10"/>
+            <column name="additional_info" value="Додаткова інформація 18"/>
+            <column name="amount" value="263222.46"/>
+            <column name="addition_description" value="Додатковий опис 18"/>
+        </insert>
+        <insert tableName="damage_report">
+            <column name="description" value="Пошкодження вікон та дверей"/>
+            <column name="infrastructure_type" value="Школа"/>
+            <column name="area_size_sq_m" value="194.89"/>
+            <column name="floors" value="16"/>
+            <column name="construction_year" value="1989"/>
+            <column name="address" value="просп. Перемоги 25"/>
+            <column name="additional_info" value="Додаткова інформація 19"/>
+            <column name="amount" value="406571.86"/>
+            <column name="addition_description" value="Додатковий опис 19"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

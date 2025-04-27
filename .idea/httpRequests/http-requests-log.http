@@ -1,0 +1,182 @@
+GET http://localhost:8080/api/v1/search?query=Stryiska St, 62
+Accept: application/json
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-04-26T204836.200.json
+
+###
+
+GET http://localhost:8080/api/v1/search?query=Stryiska St, 62 destruction after attack
+Accept: application/json
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-04-26T201901.200.json
+
+###
+
+GET http://localhost:8080/api/v1/search?query=Stryiska St, 62 destruction
+Accept: application/json
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-04-26T201818.200.json
+
+###
+
+GET http://localhost:8080/api/v1/search?query=Stryiska St, 62
+Accept: application/json
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-04-26T201649.200.json
+
+###
+
+GET http://localhost:8080/api/v1/search?query=Stryiska St, 62
+Accept: application/json
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-04-26T201104.200.json
+
+###
+
+GET http://localhost:8080/api/v1/search?query=Kyiv
+Accept: application/json
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-04-26T200939.200.json
+
+###
+
+GET http://localhost:8080/api/v1/search?query=Kyiv
+Accept: application/json
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-04-26T200322.500.json
+
+###
+
+GET http://localhost:8080/api/v1/search?query=Kyiv
+Accept: application/json
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-04-26T200310.500.json
+
+###
+
+GET http://localhost:8080/api/v1/search?query=Kyiv
+Accept: application/json
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-04-26T195657.500.json
+
+###
+
+GET http://localhost:8080/api/v1/search?query=Kyiv
+Accept: application/json
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+###
+
+GET http://localhost:8080/api/v1/search?query=Kyiv
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+###
+
+GET http://localhost:8080/api/v1/search?query=Kharkiv region
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+###
+
+GET http://localhost:8080/api/v1/search?query=
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+###
+
+GET http://localhost:8080/api/v1/search?query=
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+###
+
+GET http://localhost:8080/api/v1/search?query=
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+###
+
+GET http://localhost:8080/api/v1/search?query=
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+###
+
+GET http://localhost:8080/api/v1/search?query=
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+###
+
+GET http://localhost:8080/api/v1/search?query=
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+###
+
+GET http://localhost:8080/api/v1/search?query=Kyiv destruction
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+###
+
+GET http://localhost:8080/api/v1/search?query=
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+###
+
+GET http://localhost:8080/api/v1/search?query=Kyiv
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+###
+
+GET http://localhost:8080/api/v1/search
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+###
+
