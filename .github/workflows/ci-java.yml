@@ -1,0 +1,48 @@
+name: My GitHub Actions Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  REPO_URL: https://github.com/delion-inc/ukraine_damages.git
+  WORK_DIR: server
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Cloning project from GitHub...
+        uses: actions/checkout@v4
+        with:
+          repository: delion-inc/ukraine_damages
+          ref: main
+          fetch-depth: 0
+
+      - name: 🔧 Set up Temurin JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: 🔨 Building Spring Boot application with Maven...
+        working-directory: ${{ env.WORK_DIR }}
+        run: |
+          echo "JAVA_HOME=$JAVA_HOME"
+          java -version
+          mvn -v
+          mvn -B -ntp clean package -DskipTests
+
+      - name: ✅ Build completed successfully!
+        run: echo "Build done for ${{ env.REPO_URL }} in ${{ env.WORK_DIR }}"
+
+      - name: 📦 Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: server-jar
+          path: ${{ env.WORK_DIR }}/target/*.jar
+          if-no-files-found: warn
